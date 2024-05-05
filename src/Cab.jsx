@@ -47,7 +47,7 @@ export default function Cab() {
       navigate("/inquirysuccess");
     }
   }
-  console.log(pickUp);
+
   return (
     <>
       <div style={{ margin: "auto" }}>
