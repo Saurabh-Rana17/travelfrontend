@@ -28,7 +28,7 @@ const mainFeaturedPost = {
 const sidebar = {
   title: "About",
   description:
-    "At [Your Company Name], we unlock the wonders of Uttarakhand for you with expert guides and carefully curated itineraries. Join us to experience the magic firsthand.",
+    "At [Company Name], we unlock the wonders of Uttarakhand for you with expert guides and carefully curated itineraries. Join us to experience the magic firsthand.",
   social: [
     { name: "GitHub", icon: GitHubIcon },
     { name: "X", icon: XIcon },
