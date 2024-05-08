@@ -117,6 +117,8 @@ export default function Cab() {
                   fullWidth
                   required
                   type="date"
+                  label="date"
+                  defaultValue={new Date().toJSON().slice(0, 10)}
                   onChange={(e) => setDate(e.target.value)}
                 />
               </Grid>
