@@ -2,6 +2,8 @@ import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FeaturedPost from "./FeaturedPost";
 import Loader from "./Loader";
+import HorizontalSkeleton from "./HorizontalSkeleton";
+import VerticalSkeleton from "./VerticalSkeleton";
 
 function Packages() {
   const [packages, setPackages] = useState([]);
@@ -32,7 +34,9 @@ function Packages() {
           ))}
         </Grid>
       )}
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
+      {loading && <HorizontalSkeleton />}
+      {/* {loading && <VerticalSkeleton />} */}
     </>
   );
 }

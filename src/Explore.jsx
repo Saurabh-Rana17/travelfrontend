@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import FeaturedPost from "./FeaturedPost";
 import { RotateLoader } from "react-spinners";
 import Loader from "./Loader";
+import HorizontalSkeleton from "./HorizontalSkeleton";
+import VerticalSkeleton from "./VerticalSkeleton";
 
 function Explore() {
   const [post, setPost] = useState(null);
@@ -37,7 +39,9 @@ function Explore() {
           ))}
         </Grid>
       )}
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
+      {loading && <HorizontalSkeleton />}
+      {/* {loading && <VerticalSkeleton />} */}
     </>
   );
 }
