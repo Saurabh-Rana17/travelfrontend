@@ -24,10 +24,7 @@ function MainFeaturedPost() {
   return (
     <>
       {loading ? (
-        <>
-          {" "}
-          <Loader />{" "}
-        </>
+        <Loader />
       ) : (
         <Paper
           sx={{

@@ -12,6 +12,7 @@ import FeaturedPost from "./FeaturedPost";
 import RecommendedPost from "./RecommendedPost";
 import ExlporeMoreTour from "./ExlporeMoreTour";
 import Loader from "./Loader";
+import VerticalSkeleton from "./VerticalSkeleton";
 
 export default function Recommended() {
   const [post, setPost] = useState([]);
@@ -40,7 +41,7 @@ export default function Recommended() {
         Tours
       </Typography>
       {loading ? (
-        <Loader />
+        <VerticalSkeleton />
       ) : (
         <Grid
           container

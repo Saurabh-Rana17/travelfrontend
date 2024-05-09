@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import ExplorePost from "./CategoryPost.jsx";
 import RecommendedPost from "./Recommended.jsx";
+import HorizontalSkeleton from "./HorizontalSkeleton.jsx";
 
 const mainFeaturedPost = {
   title: "Devbhoomi Uttarakhand",
@@ -42,12 +43,15 @@ export default function Home() {
   const user = localStorage.getItem("user");
   let i = 0;
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const res = await fetch("https://travel-rv5s.onrender.com/category");
       const data = await res.json();
       setCategories(data);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -58,12 +62,15 @@ export default function Home() {
       <Typography component="h2" variant="h5">
         "Explore the Natural Beauty of Uttarakhand "
       </Typography>
-
-      <Grid sx={{ mt: 0 }} container spacing={4}>
-        {categories.map((post) => (
-          <ExplorePost key={i++} post={post} />
-        ))}
-      </Grid>
+      {!loading ? (
+        <Grid sx={{ mt: 0 }} container spacing={4}>
+          {categories.map((post) => (
+            <ExplorePost key={i++} post={post} />
+          ))}
+        </Grid>
+      ) : (
+        <HorizontalSkeleton />
+      )}
 
       <RecommendedPost />
       <Grid container spacing={5} sx={{ mt: 3 }}>
