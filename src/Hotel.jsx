@@ -8,6 +8,7 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import FeaturedPost from "./FeaturedPost";
 import HotelPost from "./HotelPost";
 import Loader from "./Loader";
+import HorizontalSkeleton from "./HorizontalSkeleton";
 
 function Hotel() {
   const [loading, setLoading] = useState(false);
@@ -159,7 +160,7 @@ function Hotel() {
           ))}
         </Grid>
       )}
-      {loading && <Loader />}
+      {loading && <HorizontalSkeleton />}
     </>
   );
 }

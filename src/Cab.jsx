@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Cab() {
@@ -19,7 +19,16 @@ export default function Cab() {
   const [date, setDate] = useState("");
   const [empty, setEmpty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  useEffect(() => {
+    let currentDate = new Date();
 
+    currentDate.setDate(currentDate.getDate() + 1);
+
+    const tomorrowDate = currentDate.toJSON().slice(0, 10);
+
+    setDate(tomorrowDate);
+    console.log(tomorrowDate);
+  }, []);
   async function handleClick() {
     setEmpty(false);
     if (!pickUp || !dropUp || !noOfPeople || !date) {
@@ -118,7 +127,8 @@ export default function Cab() {
                   required
                   type="date"
                   label="date"
-                  defaultValue={new Date().toJSON().slice(0, 10)}
+                  value={date}
+                  // defaultValue={new Date().toJSON().slice(0, 10)}
                   onChange={(e) => setDate(e.target.value)}
                 />
               </Grid>
