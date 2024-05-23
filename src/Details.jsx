@@ -6,8 +6,14 @@ import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Chip, CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loader from "./Loader.jsx";
+import { CartContext } from "./StateProvider.jsx";
+import {
+  AddCircleOutline,
+  AddShoppingCart,
+  ShoppingCartCheckout,
+} from "@mui/icons-material";
 
 export default function Details() {
   const params = useParams();
@@ -16,6 +22,15 @@ export default function Details() {
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addTour, cartState } = useContext(CartContext);
+  const [isPresent, setIsPresent] = useState();
+
+  function checkIfPresent() {
+    const arr = cartState.tours;
+    const res = arr.some((el) => el.id === params.id);
+
+    setIsPresent(res);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,39 +42,45 @@ export default function Details() {
       setLoading(false);
     };
     fetchData();
+    checkIfPresent();
   }, []);
 
   const handleClick = (category) => {
     navigate("/category/" + category);
   };
 
-  const handleBook = async (event) => {
-    event.preventDefault();
-    if (!user) {
-      navigate("/signup");
-    } else if (!user.active) {
-      navigate("/activate");
-    } else {
-      setIsSubmitting(true);
-      const response = await fetch(
-        "https://travel-rv5s.onrender.com/tour/book",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: user.email,
-            tour: data.id,
-          }),
-        }
-      );
-      const res = await response.json();
+  // const handleBook = async (event) => {
+  //   event.preventDefault();
+  //   if (!user) {
+  //     navigate("/signup");
+  //   } else if (!user.active) {
+  //     navigate("/activate");
+  //   } else {
+  //     setIsSubmitting(true);
+  //     const response = await fetch(
+  //       "https://travel-rv5s.onrender.com/tour/book",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           email: user.email,
+  //           tour: data.id,
+  //         }),
+  //       }
+  //     );
+  //     const res = await response.json();
 
-      setIsSubmitting(false);
-      navigate("/success");
-    }
-  };
+  //     setIsSubmitting(false);
+  //     navigate("/success");
+  //   }
+  // };
+
+  function handleBook() {
+    addTour(data.id, data.title);
+    setIsPresent(true);
+  }
 
   return (
     <>
@@ -122,11 +143,15 @@ export default function Details() {
             <Box py={"2rem"} textAlign={"center"}>
               <Button
                 disabled={isSubmitting}
-                onClick={handleBook}
+                onClick={isPresent ? () => navigate("/cart") : handleBook}
                 variant="contained"
                 sx={{}}
+                color={isPresent ? "success" : "primary"}
+                startIcon={
+                  isPresent ? <ShoppingCartCheckout /> : <AddShoppingCart />
+                }
               >
-                {isSubmitting ? "Booking Now" : "Book Now"}
+                {!isPresent ? "Add To Cart" : "Go To Cart"}
               </Button>
             </Box>
           </Paper>

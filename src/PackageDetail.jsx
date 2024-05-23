@@ -6,11 +6,13 @@ import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Chip, CircularProgress, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loader from "./Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import FeaturedPost from "./FeaturedPost.jsx";
+import { CartContext } from "./StateProvider.jsx";
+import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 
 export default function PackageDetail() {
   const params = useParams();
@@ -19,8 +21,15 @@ export default function PackageDetail() {
   const [loading, setLoading] = useState(true);
   const [mainImg, setMainImg] = useState("");
   const [imgArr, setImgArr] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addPackage, cartState } = useContext(CartContext);
+  const [isPresent, setIsPresent] = useState(false);
+
+  function checkIfPresent() {
+    const arr = cartState.packages;
+    const res = arr.some((el) => el.id === params.id);
+    setIsPresent(res);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,38 +45,48 @@ export default function PackageDetail() {
       setImgArr(imgf);
     };
     fetchData();
+    checkIfPresent();
   }, []);
 
   const handleClick = (category) => {
     navigate("/category/" + category);
   };
 
-  const handleBook = async (event) => {
-    event.preventDefault();
-    if (!user) {
-      navigate("/signup");
-    } else if (!user.active) {
-      navigate("/activate");
+  // const handleBook = async (event) => {
+  //   event.preventDefault();
+  //   if (!user) {
+  //     navigate("/signup");
+  //   } else if (!user.active) {
+  //     navigate("/activate");
+  //   } else {
+  //     setIsSubmitting(true);
+  //     const response = await fetch(
+  //       "https://travel-rv5s.onrender.com/package/book",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           email: user.email,
+  //           package: data.id,
+  //         }),
+  //       }
+  //     );
+  //     const res = await response.json();
+  //     setIsSubmitting(false);
+  //     navigate("/success");
+  //   }
+  // };
+
+  function handleBook() {
+    if (!isPresent) {
+      addPackage(data.id, data.name);
+      setIsPresent(true);
     } else {
-      setIsSubmitting(true);
-      const response = await fetch(
-        "https://travel-rv5s.onrender.com/package/book",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: user.email,
-            package: data.id,
-          }),
-        }
-      );
-      const res = await response.json();
-      setIsSubmitting(false);
-      navigate("/success");
+      navigate("/cart");
     }
-  };
+  }
   return (
     <>
       {loading ? (
@@ -212,8 +231,12 @@ export default function PackageDetail() {
                 onClick={handleBook}
                 variant="contained"
                 sx={{}}
+                startIcon={
+                  isPresent ? <ShoppingCartCheckout /> : <AddShoppingCart />
+                }
+                color={isPresent ? "success" : "primary"}
               >
-                {isSubmitting ? "Booking Now" : "Book Now"}
+                {isPresent ? "Go To Cart" : "Add To Cart"}
               </Button>
             </Box>
           </Paper>

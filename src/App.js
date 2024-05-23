@@ -28,6 +28,8 @@ import PackageDetail from "./PackageDetail.jsx";
 import HotelDetail from "./HotelDetail.jsx";
 import BookingSuccess from "./BookingSuccess.jsx";
 import InquirySuccess from "./InquirySuccess.jsx";
+import Cart from "./Cart.jsx";
+import StateProvider from "./StateProvider.jsx";
 
 export default function App() {
   const [user, setUser] = React.useState(localStorage.getItem("user"));
@@ -57,12 +59,15 @@ export default function App() {
         <Route path="/hotel/:id" element={<HotelDetail />} />
         <Route path="/success" element={<BookingSuccess />} />
         <Route path="/inquirysuccess" element={<InquirySuccess />} />
+        <Route path="/cart" element={<Cart />} />
       </Route>
     )
   );
   return (
     <>
-      <RouterProvider router={router} />
+      <StateProvider>
+        <RouterProvider router={router} />
+      </StateProvider>
     </>
   );
 }

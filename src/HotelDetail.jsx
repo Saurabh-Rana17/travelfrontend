@@ -6,12 +6,17 @@ import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Chip, CircularProgress, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loader from "./Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import FeaturedPost from "./FeaturedPost.jsx";
-import { Dataset } from "@mui/icons-material";
+import {
+  AddShoppingCart,
+  Dataset,
+  ShoppingCartCheckout,
+} from "@mui/icons-material";
+import { CartContext } from "./StateProvider.jsx";
 
 export default function HotelDetail() {
   const params = useParams();
@@ -20,8 +25,13 @@ export default function HotelDetail() {
   const [loading, setLoading] = useState(true);
   const [mainImg, setMainImg] = useState("");
   const [imgArr, setImgArr] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addHotel, cartState } = useContext(CartContext);
+  const [isPresent, setIsPresent] = useState(false);
+  function checkIfPresent() {
+    const res = cartState.hotels.some((el) => el.id === params.id);
+    setIsPresent(res);
+  }
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -36,37 +46,47 @@ export default function HotelDetail() {
       setImgArr(imgf);
     };
     fetchData();
+    checkIfPresent();
   }, []);
 
   const handleClick = (category) => {
     navigate("/category/" + category);
   };
-  const handleBook = async (event) => {
-    event.preventDefault();
-    if (!user) {
-      navigate("/signup");
-    } else if (!user.active) {
-      navigate("/activate");
+  // const handleBook = async (event) => {
+  //   event.preventDefault();
+  //   if (!user) {
+  //     navigate("/signup");
+  //   } else if (!user.active) {
+  //     navigate("/activate");
+  //   } else {
+  //     setIsSubmitting(true);
+  //     const response = await fetch(
+  //       "https://travel-rv5s.onrender.com/hotel/book",
+  //       {
+  //         method: "POST",
+  //         body: JSON.stringify({
+  //           email: user.email,
+  //           hotel: datatest.id,
+  //         }),
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     const res = await response.json();
+  //     setIsSubmitting(false);
+  //     navigate("/success");
+  //   }
+  // };
+
+  function handleBook() {
+    if (isPresent) {
+      navigate("/cart");
     } else {
-      setIsSubmitting(true);
-      const response = await fetch(
-        "https://travel-rv5s.onrender.com/hotel/book",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: user.email,
-            hotel: datatest.id,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const res = await response.json();
-      setIsSubmitting(false);
-      navigate("/success");
+      addHotel(datatest.id, datatest.name, datatest.cost);
+      setIsPresent(true);
     }
-  };
+  }
 
   return (
     <>
@@ -258,8 +278,12 @@ export default function HotelDetail() {
                 onClick={handleBook}
                 variant="contained"
                 sx={{}}
+                color={isPresent ? "success" : "primary"}
+                startIcon={
+                  isPresent ? <ShoppingCartCheckout /> : <AddShoppingCart />
+                }
               >
-                {isSubmitting ? "Booking Now" : "Book Now"}
+                {isPresent ? "Go To Cart" : "Add To Cart"}
               </Button>
             </Box>
           </Paper>

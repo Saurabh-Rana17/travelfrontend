@@ -5,15 +5,17 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { Box, Input } from "@mui/material";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { Badge, Box, Input } from "@mui/material";
+import { useNavigate, NavLink, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
-
+import { blue, blueGrey, grey } from "@mui/material/colors";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CartBadge from "./CartBadge";
 function Header({ user, setUser }) {
   const title = "Travels";
   const navigate = useNavigate();
   const sections = [
-    { title: "Home", url: "/home" },
+    { title: "Home", url: "/" },
     { title: "Hotel", url: "/hotel" },
     { title: "Cab", url: "/cab" },
     { title: "Explore", url: "/explore" },
@@ -99,7 +101,7 @@ function Header({ user, setUser }) {
               autoFocus
               sx={{
                 width: {
-                  xs: "49vw",
+                  xs: "45vw",
                   sm: "auto",
                 },
               }}
@@ -118,6 +120,16 @@ function Header({ user, setUser }) {
           <IconButton onClick={HandleSearchBar}>
             <SearchIcon />
           </IconButton>
+          <Box
+            sx={{
+              display: {
+                xs: active ? "none" : "inline-block",
+                sm: "inline-block",
+              },
+            }}
+          >
+            <CartBadge />
+          </Box>
         </form>
         {user ? (
           <Button
@@ -148,7 +160,15 @@ function Header({ user, setUser }) {
         {sections.map((section) => (
           <Link
             color="inherit"
-            component={RouterLink}
+            component={NavLink}
+            style={({ isActive }) => {
+              return {
+                fontWeight: isActive ? "bold" : "",
+                backgroundColor: isActive ? grey[300] : "",
+                borderRadius: "7px",
+                // color: isActive ? "white" : "",
+              };
+            }}
             noWrap
             key={section.title}
             variant="body2"
