@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 function HotelPost({ post }) {
   let navigate = useNavigate();
@@ -21,7 +21,7 @@ function HotelPost({ post }) {
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href={navUrl}>
+      <CardActionArea component={RouterLink} to={navUrl}>
         <Card sx={{ display: { xs: "none", sm: "flex" }, height: "10rem" }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">

@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import React, { useState } from "react";
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -75,12 +75,7 @@ export default function SignIn({ setUser }) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -90,6 +85,7 @@ export default function SignIn({ setUser }) {
               name="email"
               autoComplete="email"
               autoFocus
+              type="email"
             />
             <TextField
               margin="normal"
@@ -122,7 +118,7 @@ export default function SignIn({ setUser }) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signUp" variant="body2">
+                <Link component={RouterLink} to="/signUp" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { Skeleton } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 function MainFeaturedSkeleton() {
   const post =
@@ -98,13 +99,9 @@ function MainFeaturedSkeleton() {
               >
                 {post}
               </Typography>
-              <Link
-                sx={{ color: "white" }}
-                variant="subtitle1"
-                // href={`/package/${post.id}`}
-              >
+              <RouterLink sx={{ color: "white" }} variant="subtitle1">
                 Continue reading…
-              </Link>
+              </RouterLink>
             </Box>
           </Grid>
         </Grid>

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Chip, CircularProgress, Grid, Link } from "@mui/material";
+import { Button, Chip, CircularProgress, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
 import Loader from "./Loader.jsx";

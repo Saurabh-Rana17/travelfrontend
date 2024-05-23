@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Autocomplete } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -83,6 +83,15 @@ export default function SignUp({ setUser }) {
   const handleChange = (event, newValues) => {
     setSelectedItems(newValues);
   };
+
+  const optionArr = [
+    "Adventure",
+    "Hill & Mountain lover",
+    "Religious",
+    "Romantic",
+    "Relaxation",
+    "Trekking lover",
+  ];
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -168,6 +177,7 @@ export default function SignUp({ setUser }) {
                   ]}
                   renderInput={(params) => (
                     <TextField
+                      key={params}
                       {...params}
                       label="Select Interest or type here"
                     />
@@ -211,7 +221,7 @@ export default function SignUp({ setUser }) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signIn" variant="body2">
+                <Link component={RouterLink} to="/signIn" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

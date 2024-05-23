@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import MainFeaturedSkeleton from "./MainFeaturedSkeleton";
+import { createBrowserRouter, Link as RouterLink } from "react-router-dom";
 
 function MainFeaturedPost() {
   const [post, setPost] = useState(null);
@@ -114,9 +115,10 @@ function MainFeaturedPost() {
                   {post.description.substring(0, 99)}...
                 </Typography>
                 <Link
+                  component={RouterLink}
                   sx={{ color: "white" }}
                   variant="subtitle1"
-                  href={`/package/${post.id}`}
+                  to={`/package/${post.id}`}
                 >
                   Continue reading…
                 </Link>

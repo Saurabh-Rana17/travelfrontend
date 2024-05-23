@@ -5,8 +5,8 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { Input } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Input } from "@mui/material";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 
 function Header({ user, setUser }) {
@@ -40,7 +40,6 @@ function Header({ user, setUser }) {
     <React.Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Typography
-          component="h2"
           variant="h5"
           color="inherit"
           align="left"
@@ -50,13 +49,22 @@ function Header({ user, setUser }) {
             display: {
               sm: "none",
             },
+            textDecoration: "none",
           }}
         >
-          {!active && title}
+          {!active && (
+            <Box
+              component={RouterLink}
+              sx={{ textDecoration: "none" }}
+              color={"inherit"}
+              display={"inline-block"}
+            >
+              {title}
+            </Box>
+          )}
         </Typography>
 
         <Typography
-          component="h2"
           variant="h5"
           color="inherit"
           align="left"
@@ -69,28 +77,48 @@ function Header({ user, setUser }) {
             },
           }}
         >
-          {title}
+          <Box
+            component={RouterLink}
+            sx={{ textDecoration: "none" }}
+            color={"inherit"}
+            display={"inline-block"}
+          >
+            {title}
+          </Box>
         </Typography>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            HandleSearchBar();
+          }}
+        >
+          {active ? (
+            <Input
+              value={search}
+              align="center"
+              autoFocus
+              sx={{
+                width: {
+                  xs: "49vw",
+                  sm: "auto",
+                },
+              }}
+              size="small"
+              onBlur={() => {
+                if (!search) {
+                  setActive(false);
+                }
+              }}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          ) : (
+            ""
+          )}
 
-        {active ? (
-          <Input
-            align="center"
-            sx={{
-              width: {
-                xs: "50vw",
-                sm: "auto",
-              },
-            }}
-            size="small"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        ) : (
-          ""
-        )}
-
-        <IconButton onClick={HandleSearchBar}>
-          <SearchIcon />
-        </IconButton>
+          <IconButton onClick={HandleSearchBar}>
+            <SearchIcon />
+          </IconButton>
+        </form>
         {user ? (
           <Button
             variant="outlined"
@@ -103,8 +131,12 @@ function Header({ user, setUser }) {
             Logout
           </Button>
         ) : (
-          <Button variant="outlined" size="small" href="/signUp">
-            Sign up
+          <Button
+            onClick={() => navigate("/signin")}
+            variant="outlined"
+            size="small"
+          >
+            Sign In
           </Button>
         )}
       </Toolbar>
@@ -116,10 +148,11 @@ function Header({ user, setUser }) {
         {sections.map((section) => (
           <Link
             color="inherit"
+            component={RouterLink}
             noWrap
             key={section.title}
             variant="body2"
-            href={section.url}
+            to={section.url}
             sx={{ p: 1, flexShrink: 0 }}
           >
             {section.title}

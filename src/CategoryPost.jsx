@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 function CategoryPost({ post }) {
   let navigate = useNavigate();
@@ -15,7 +15,7 @@ function CategoryPost({ post }) {
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea href={"/category/" + post.name}>
+      <CardActionArea component={RouterLink} to={"/category/" + post.name}>
         <Card sx={{ display: { xs: "none", sm: "flex" } }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography

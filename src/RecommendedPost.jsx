@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 function RecommendedPost({ post }) {
   let navigate = useNavigate();
@@ -24,7 +24,7 @@ function RecommendedPost({ post }) {
 
   return (
     <Grid item xs={12} sm={4}>
-      <CardActionArea component="a" href={navUrl}>
+      <CardActionArea component={RouterLink} to={navUrl}>
         <Card
           sx={{
             maxWidth: 360,

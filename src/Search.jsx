@@ -17,6 +17,7 @@ export default function Search() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       const response = await fetch(
         `https://travel-rv5s.onrender.com/search/${param.query}`

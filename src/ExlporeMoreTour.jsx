@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 export default function ExlporeMoreTour() {
   const navigate = useNavigate;
@@ -18,7 +18,7 @@ export default function ExlporeMoreTour() {
   }
   return (
     <Grid item xs={12} sm={4}>
-      <CardActionArea component="a" href={"/explore"}>
+      <CardActionArea component={RouterLink} to={"/explore"}>
         <Card
           sx={{
             maxWidth: 360,
