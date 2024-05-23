@@ -31,31 +31,38 @@ import InquirySuccess from "./InquirySuccess.jsx";
 
 export default function App() {
   const [user, setUser] = React.useState(localStorage.getItem("user"));
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route
+        errorElement={<Error />}
+        path="/"
+        element={<Layout user={user} setUser={setUser} />}
+      >
+        <Route index exact element={<Home />} />
+        <Route path="/home" exact element={<Navigate to="/" />} />
+        <Route path="/search/:query" element={<Search />} />
+        <Route path="/signUp" element={<SignUp setUser={setUser} />} />
+        <Route path="/signIn" element={<SignIn setUser={setUser} />} />
+        <Route path="/tour/:id" element={<Details />} />
+        <Route path="/category/:category" element={<Category />} />
+        <Route path="/book/:tourId" element={<BookTour />} />
+        <Route path="/hotel" element={<Hotel />} />
+        <Route path="/cab" element={<Cab />} />
+        <Route path="/contact" element={<Inquiry />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/activate" element={<Activate />} />
+        <Route path="/verify" element={<ValidateOtp />} />
+        <Route path="/packages" element={<Packages />} />
+        <Route path="/package/:id" element={<PackageDetail />} />
+        <Route path="/hotel/:id" element={<HotelDetail />} />
+        <Route path="/success" element={<BookingSuccess />} />
+        <Route path="/inquirysuccess" element={<InquirySuccess />} />
+      </Route>
+    )
+  );
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Layout user={user} setUser={setUser} />}>
-          <Route index exact element={<Home />} />
-          <Route path="/home" exact element={<Navigate to="/" />} />
-          <Route path="/search/:query" element={<Search />} />
-          <Route path="/signUp" element={<SignUp setUser={setUser} />} />
-          <Route path="/signIn" element={<SignIn setUser={setUser} />} />
-          <Route path="/tour/:id" element={<Details />} />
-          <Route path="/category/:category" element={<Category />} />
-          <Route path="/book/:tourId" element={<BookTour />} />
-          <Route path="/hotel" element={<Hotel />} />
-          <Route path="/cab" element={<Cab />} />
-          <Route path="/contact" element={<Inquiry />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/activate" element={<Activate />} />
-          <Route path="/verify" element={<ValidateOtp />} />
-          <Route path="/packages" element={<Packages />} />
-          <Route path="/package/:id" element={<PackageDetail />} />
-          <Route path="/hotel/:id" element={<HotelDetail />} />
-          <Route path="/success" element={<BookingSuccess />} />
-          <Route path="/inquirysuccess" element={<InquirySuccess />} />
-        </Route>
-      </Routes>
+      <RouterProvider router={router} />
     </>
   );
 }
