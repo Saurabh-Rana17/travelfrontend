@@ -20,6 +20,7 @@ export const CartContext = createContext({
   addPackage: () => {},
   deletePackage: () => {},
   addHotel: () => {},
+  deleteHotel: () => {},
 });
 
 function cartReducer(state, action) {
@@ -91,6 +92,18 @@ function cartReducer(state, action) {
       return newState;
     }
 
+    case "deleteHotel": {
+      const id = action.payload;
+      const total = state.total - 1;
+      const newHotels = state.hotels.filter((el) => el.id !== id);
+      const newState = {
+        ...state,
+        total,
+        hotels: newHotels,
+      };
+      return newState;
+    }
+
     default:
       return state;
   }
@@ -142,6 +155,13 @@ function StateProvider({ children }) {
     });
   }
 
+  function deleteHotel(id) {
+    dispatch({
+      type: "deleteHotel",
+      payload: id,
+    });
+  }
+
   const value = {
     cartState,
     addTour,
@@ -149,6 +169,7 @@ function StateProvider({ children }) {
     addPackage,
     deletePackage,
     addHotel,
+    deleteHotel,
   };
   console.log(cartState);
 

@@ -15,14 +15,9 @@ import { CartContext } from "./StateProvider";
 import { Delete } from "@mui/icons-material";
 
 export default function Cart() {
-  const { cartState, deleteTour, deletePackage } = useContext(CartContext);
-  const tour = [
-    { name: "dhsj", id: "4748328q" },
-    { name: "dhgjfsj", id: "4783282" },
-    { name: "dhgfdgdsj", id: "4748328" },
-    { name: "dhsdfsj", id: "4783528" },
-    { name: "dhswq3j", id: "42783238" },
-  ];
+  const { cartState, deleteTour, deletePackage, deleteHotel } =
+    useContext(CartContext);
+
   return (
     <>
       <Typography variant="h5">Hotels</Typography>
@@ -33,6 +28,7 @@ export default function Cart() {
               <TableCell>Sr.no </TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Price</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,6 +43,24 @@ export default function Cart() {
                   {row.name}
                 </TableCell>
                 <TableCell>{row.price}</TableCell>
+                <TableCell align="right">
+                  <Button
+                    onClick={() => deleteHotel(row.id)}
+                    startIcon={<Delete />}
+                    color="error"
+                  >
+                    <Box
+                      sx={{
+                        display: {
+                          xs: "none",
+                          sm: "block",
+                        },
+                      }}
+                    >
+                      Remove
+                    </Box>
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
