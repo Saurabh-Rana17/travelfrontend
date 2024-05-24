@@ -14,9 +14,11 @@ import CartBadge from "./CartBadge";
 import { toast } from "react-toastify";
 import { LogoutOutlined } from "@mui/icons-material";
 import { useContext } from "react";
-import { CartContext } from "./StateProvider";
+import { CartContext } from "./store/StateProvider";
+import { userContext } from "./store/UserProvider";
 
-function Header({ user, setUser }) {
+function Header({}) {
+  const { userState, setUserState } = useContext(userContext);
   const title = "Travels";
   const { deleteCart } = useContext(CartContext);
   const navigate = useNavigate();
@@ -34,7 +36,6 @@ function Header({ user, setUser }) {
 
   const [active, setActive] = React.useState(false);
   const [search, setSearch] = React.useState("");
-  // const [user, setUser] = React.useState(localStorage.getItem("user"));
   const HandleSearchBar = () => {
     if (!active) setActive(true);
     else if (search.trim().length > 0) {
@@ -137,7 +138,7 @@ function Header({ user, setUser }) {
             <CartBadge />
           </Box>
         </form>
-        {user ? (
+        {userState ? (
           <Button
             variant="text"
             size="small"
@@ -149,11 +150,9 @@ function Header({ user, setUser }) {
               },
             }}
             onClick={() => {
-              localStorage.removeItem("user");
-              localStorage.removeItem("cart");
               deleteCart();
 
-              setUser(null);
+              setUserState(null);
               toast.error(
                 <>
                   <Box display={"flex"}>

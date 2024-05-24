@@ -1,28 +1,36 @@
 import {
   Box,
   Button,
+  Dialog,
+  Divider,
   OutlinedInput,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import SignIn from "./Pages/AuthPages/SignIn";
+import SignInComponent from "./components/SignInComponent";
+import AuthModal from "./components/AuthModal";
+import { userContext } from "./store/UserProvider";
 
 export default function Inquiry() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { userState: user } = useContext(userContext);
   const [query, setQuery] = useState("");
   const [queryDetail, setQueryDetail] = useState("");
   const [empty, setEmpty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   async function handleClick() {
     setEmpty(false);
     if (!query || !queryDetail) {
       setEmpty(true);
     } else if (!user) {
-      navigate("/signup");
+      setShowModal(true);
     } else {
       setIsSubmitting(true);
       const response = await fetch("https://travel-rv5s.onrender.com/inquiry", {
@@ -38,6 +46,7 @@ export default function Inquiry() {
       });
       const res = await response.json();
       setIsSubmitting(false);
+      toast.success("Sent Successfully");
       navigate("/inquirysuccess");
     }
   }
@@ -65,6 +74,8 @@ export default function Inquiry() {
   return (
     <>
       <div style={{ margin: "auto" }}>
+        <AuthModal showModal={showModal} setShowModal={setShowModal} />
+
         <Box
           sx={{
             display: "flex",

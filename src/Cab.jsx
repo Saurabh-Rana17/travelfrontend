@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Cab() {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ export default function Cab() {
       const res = await response.json();
       console.log(res);
       setIsSubmitting(false);
+      toast.success("Submitted Successfully");
       navigate("/inquirysuccess");
     }
   }

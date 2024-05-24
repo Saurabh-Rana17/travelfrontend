@@ -9,9 +9,9 @@ import {
 } from "react-router-dom";
 import Home from "./Home.jsx";
 import Search from "./Search.jsx";
-import SignUp from "./SignUp.jsx";
+import SignUp from "./Pages/AuthPages/SignUp.jsx";
 import Details from "./Details.jsx";
-import SignIn from "./SignIn.jsx";
+import SignIn from "./Pages/AuthPages/SignIn.jsx";
 import Category from "./Category.jsx";
 import Explore from "./Explore.jsx";
 import Layout from "./Layout.jsx";
@@ -29,10 +29,12 @@ import HotelDetail from "./HotelDetail.jsx";
 import BookingSuccess from "./BookingSuccess.jsx";
 import InquirySuccess from "./InquirySuccess.jsx";
 import Cart from "./Cart.jsx";
-import StateProvider from "./StateProvider.jsx";
+import StateProvider from "./store/StateProvider.jsx";
+import UserProvider from "./store/UserProvider.jsx";
 
 export default function App() {
   const [user, setUser] = React.useState(localStorage.getItem("user"));
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route
@@ -66,7 +68,9 @@ export default function App() {
   return (
     <>
       <StateProvider>
-        <RouterProvider router={router} />
+        <UserProvider>
+          <RouterProvider router={router} />
+        </UserProvider>
       </StateProvider>
     </>
   );

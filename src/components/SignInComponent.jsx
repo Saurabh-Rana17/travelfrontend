@@ -10,14 +10,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { blue } from "@mui/material/colors";
+import { userContext } from "../store/UserProvider";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignIn({ setUser }) {
+export default function SignInComponent({ setContent, setShowModal }) {
+  const { setUserState } = useContext(userContext);
   let navigate = useNavigate();
   const [failed, setfailed] = React.useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -47,12 +50,11 @@ export default function SignIn({ setUser }) {
 
       if (response.headers.get("content-type")) {
         const user = await response.json();
-        localStorage.setItem("user", JSON.stringify(user));
-        setUser(user);
+
+        setUserState(user);
         setSubmitting(false);
         toast.success("Signed In Successfully");
-
-        navigate("/");
+        setShowModal(false);
       } else {
         setfailed(true);
         toast.error("Failed ");
@@ -67,7 +69,6 @@ export default function SignIn({ setUser }) {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -121,8 +122,14 @@ export default function SignIn({ setUser }) {
               {submitting ? "Signing in" : "Sign in"}
             </Button>
             <Grid container>
-              <Grid item>
-                <Link component={RouterLink} to="/signUp" variant="body2">
+              <Grid marginBottom={4} item>
+                <Link
+                  onClick={() => setContent("signup")}
+                  component={"button"}
+                  type="button"
+                  sx={{}}
+                  variant="body2"
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

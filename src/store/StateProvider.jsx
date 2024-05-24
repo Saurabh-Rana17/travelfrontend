@@ -46,7 +46,7 @@ function cartReducer(state, action) {
       const id = action.payload;
       const newTours = state.tours.filter((el) => el.id !== id);
       const total = state.total - 1;
-      console.log(newTours);
+
       const newState = {
         ...state,
         tours: newTours,
@@ -106,7 +106,7 @@ function cartReducer(state, action) {
     }
 
     case "deleteCart": {
-      console.log("deletecart clciked");
+      localStorage.removeItem("cart");
       return defaultState;
     }
 
@@ -184,7 +184,6 @@ function StateProvider({ children }) {
     deleteHotel,
     deleteCart,
   };
-  console.log(cartState);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

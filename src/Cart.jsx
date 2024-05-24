@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext } from "react";
-import { CartContext } from "./StateProvider";
+import { CartContext } from "./store/StateProvider";
 import { Delete, DeleteForever, LogoutOutlined } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";

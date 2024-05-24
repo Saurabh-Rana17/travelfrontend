@@ -2,7 +2,7 @@ import { Badge, IconButton } from "@mui/material";
 import React, { useContext } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "./StateProvider";
+import { CartContext } from "./store/StateProvider";
 
 export default function CartBadge() {
   const navigate = useNavigate();

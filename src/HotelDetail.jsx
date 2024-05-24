@@ -16,7 +16,7 @@ import {
   Dataset,
   ShoppingCartCheckout,
 } from "@mui/icons-material";
-import { CartContext } from "./StateProvider.jsx";
+import { CartContext } from "./store/StateProvider.jsx";
 
 export default function HotelDetail() {
   const params = useParams();

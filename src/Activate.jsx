@@ -1,11 +1,17 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 
 export default function Activate() {
   const [isGenerating, setIsGenerating] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
   async function handleClick() {
     if (!user) return;
     setIsGenerating(true);

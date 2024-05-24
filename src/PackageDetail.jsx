@@ -11,7 +11,7 @@ import Loader from "./Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import FeaturedPost from "./FeaturedPost.jsx";
-import { CartContext } from "./StateProvider.jsx";
+import { CartContext } from "./store/StateProvider.jsx";
 import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 
 export default function PackageDetail() {

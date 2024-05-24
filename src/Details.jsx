@@ -8,7 +8,7 @@ import { Button, Chip, CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect, useState } from "react";
 import Loader from "./Loader.jsx";
-import { CartContext } from "./StateProvider.jsx";
+import { CartContext } from "./store/StateProvider.jsx";
 import {
   AddCircleOutline,
   AddShoppingCart,
