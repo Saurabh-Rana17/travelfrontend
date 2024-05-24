@@ -1,17 +1,13 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
+import { userContext } from "./store/UserProvider";
 
 export default function Activate() {
   const [isGenerating, setIsGenerating] = useState(false);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { userState: user } = useContext(userContext);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, []);
   async function handleClick() {
     if (!user) return;
     setIsGenerating(true);
