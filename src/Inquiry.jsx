@@ -81,7 +81,7 @@ export default function Inquiry() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginY: "5rem",
+            marginY: "3rem",
             flexDirection: "row",
           }}
         >

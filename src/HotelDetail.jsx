@@ -17,6 +17,7 @@ import {
   ShoppingCartCheckout,
 } from "@mui/icons-material";
 import { CartContext } from "./store/StateProvider.jsx";
+import { toast } from "react-toastify";
 
 export default function HotelDetail() {
   const params = useParams();
@@ -84,6 +85,7 @@ export default function HotelDetail() {
       navigate("/cart");
     } else {
       addHotel(datatest.id, datatest.name, datatest.cost);
+      toast.success("Added To Cart");
       setIsPresent(true);
     }
   }

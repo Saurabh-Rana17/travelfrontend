@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { Badge, Box, Input } from "@mui/material";
+import { Badge, Box, Input, Tooltip } from "@mui/material";
 import { useNavigate, NavLink, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import { blue, blueGrey, grey, red } from "@mui/material/colors";
@@ -123,10 +123,11 @@ function Header() {
           ) : (
             ""
           )}
-
-          <IconButton onClick={HandleSearchBar}>
-            <SearchIcon />
-          </IconButton>
+          <Tooltip title="Search">
+            <IconButton onClick={HandleSearchBar}>
+              <SearchIcon />
+            </IconButton>
+          </Tooltip>
           <Box
             sx={{
               display: {

@@ -13,6 +13,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import FeaturedPost from "./FeaturedPost.jsx";
 import { CartContext } from "./store/StateProvider.jsx";
 import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
+import { toast } from "react-toastify";
 
 export default function PackageDetail() {
   const params = useParams();
@@ -83,6 +84,7 @@ export default function PackageDetail() {
     if (!isPresent) {
       addPackage(data.id, data.name);
       setIsPresent(true);
+      toast.success("Added To Cart");
     } else {
       navigate("/cart");
     }

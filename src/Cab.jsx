@@ -7,19 +7,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { userContext } from "./store/UserProvider";
+import AuthModal from "./components/AuthModal";
 
 export default function Cab() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { userState: user } = useContext(userContext);
   const [pickUp, setPickUp] = useState("");
   const [dropUp, setDropUp] = useState("");
   const [noOfPeople, setNoOfPeople] = useState("");
   const [date, setDate] = useState("");
   const [empty, setEmpty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     let currentDate = new Date();
 
@@ -35,7 +38,7 @@ export default function Cab() {
     if (!pickUp || !dropUp || !noOfPeople || !date) {
       setEmpty(true);
     } else if (!user) {
-      navigate("/signup");
+      setShowModal(true);
     } else {
       setIsSubmitting(true);
       const response = await fetch("https://travel-rv5s.onrender.com/cab", {
@@ -62,6 +65,7 @@ export default function Cab() {
   return (
     <>
       <div style={{ margin: "auto" }}>
+        <AuthModal setShowModal={setShowModal} showModal={showModal} />
         <Box
           sx={{
             display: "flex",

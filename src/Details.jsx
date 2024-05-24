@@ -14,6 +14,7 @@ import {
   AddShoppingCart,
   ShoppingCartCheckout,
 } from "@mui/icons-material";
+import { toast } from "react-toastify";
 
 export default function Details() {
   const params = useParams();
@@ -78,6 +79,7 @@ export default function Details() {
 
   function handleBook() {
     addTour(data.id, data.title);
+    toast.success("Added To Cart");
     setIsPresent(true);
   }
 
@@ -141,7 +143,6 @@ export default function Details() {
             {/* </Stack> */}
             <Box py={"2rem"} textAlign={"center"}>
               <Button
-                disabled={isSubmitting}
                 onClick={isPresent ? () => navigate("/cart") : handleBook}
                 variant="contained"
                 sx={{}}
