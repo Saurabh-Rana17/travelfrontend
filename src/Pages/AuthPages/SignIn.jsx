@@ -18,7 +18,7 @@ import { userContext } from "../../store/UserProvider";
 
 const defaultTheme = createTheme();
 
-export default function SignIn({ setUser }) {
+export default function SignIn() {
   const { setUserState } = useContext(userContext);
   let navigate = useNavigate();
   const [failed, setfailed] = React.useState(false);

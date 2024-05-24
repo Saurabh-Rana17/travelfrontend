@@ -20,7 +20,6 @@ export default function Details() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const user = JSON.parse(localStorage.getItem("user"));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { addTour, cartState } = useContext(CartContext);
   const [isPresent, setIsPresent] = useState();

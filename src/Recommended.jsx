@@ -7,17 +7,18 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FeaturedPost from "./FeaturedPost";
 import RecommendedPost from "./RecommendedPost";
 import ExlporeMoreTour from "./ExlporeMoreTour";
 import Loader from "./Loader";
 import VerticalSkeleton from "./VerticalSkeleton";
+import { userContext } from "./store/UserProvider";
 
 export default function Recommended() {
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { userState: user } = useContext(userContext);
   useEffect(() => {
     setLoading(true);
     async function fetchData(query) {

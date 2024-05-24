@@ -40,7 +40,6 @@ const sidebar = {
 const defaultTheme = createTheme();
 
 export default function Home() {
-  const user = localStorage.getItem("user");
   let i = 0;
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);

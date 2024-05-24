@@ -17,7 +17,7 @@ import { useContext } from "react";
 import { CartContext } from "./store/StateProvider";
 import { userContext } from "./store/UserProvider";
 
-function Header({}) {
+function Header() {
   const { userState, setUserState } = useContext(userContext);
   const title = "Travels";
   const { deleteCart } = useContext(CartContext);

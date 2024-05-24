@@ -6,14 +6,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Bounce, ToastContainer } from "react-toastify";
 
-export default function Layout({ user, setUser }) {
+export default function Layout() {
   const defaultTheme = createTheme();
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Container sx={{ minHeight: "90vh" }} maxWidth="lg">
-        <Header user={user} setUser={setUser} />
+        <Header />
         <ToastContainer
           position="top-right"
           autoClose={1500}

@@ -33,20 +33,14 @@ import StateProvider from "./store/StateProvider.jsx";
 import UserProvider from "./store/UserProvider.jsx";
 
 export default function App() {
-  const [user, setUser] = React.useState(localStorage.getItem("user"));
-
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route
-        errorElement={<Error />}
-        path="/"
-        element={<Layout user={user} setUser={setUser} />}
-      >
+      <Route errorElement={<Error />} path="/" element={<Layout />}>
         <Route index exact element={<Home />} />
         <Route path="/home" exact element={<Navigate to="/" />} />
         <Route path="/search/:query" element={<Search />} />
-        <Route path="/signUp" element={<SignUp setUser={setUser} />} />
-        <Route path="/signIn" element={<SignIn setUser={setUser} />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signIn" element={<SignIn />} />
         <Route path="/tour/:id" element={<Details />} />
         <Route path="/category/:category" element={<Category />} />
         <Route path="/book/:tourId" element={<BookTour />} />
