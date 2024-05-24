@@ -10,15 +10,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Autocomplete } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { userContext } from "../../store/UserProvider";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignUp({ setUser }) {
+export default function SignUp() {
+  const { setUserState } = useContext(userContext);
   let navigate = useNavigate();
   const [failed, setFailed] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -71,8 +73,7 @@ export default function SignUp({ setUser }) {
         setSubmitting(false);
       } else if (response.headers.get("content-type")) {
         const user = await response.json();
-        localStorage.setItem("user", JSON.stringify(user));
-        setUser(user);
+        setUserState(user);
         setSubmitting(false);
         toast.success("Signed Up Successfully");
         navigate("/");
