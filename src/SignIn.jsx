@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -49,9 +50,12 @@ export default function SignIn({ setUser }) {
         localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
         setSubmitting(false);
+        toast.success("Signed In Successfully");
+
         navigate("/");
       } else {
         setfailed(true);
+        toast.error("Failed ");
         setSubmitting(false);
       }
     }

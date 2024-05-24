@@ -8,11 +8,17 @@ import Link from "@mui/material/Link";
 import { Badge, Box, Input } from "@mui/material";
 import { useNavigate, NavLink, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
-import { blue, blueGrey, grey } from "@mui/material/colors";
+import { blue, blueGrey, grey, red } from "@mui/material/colors";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CartBadge from "./CartBadge";
+import { toast } from "react-toastify";
+import { LogoutOutlined } from "@mui/icons-material";
+import { useContext } from "react";
+import { CartContext } from "./StateProvider";
+
 function Header({ user, setUser }) {
   const title = "Travels";
+  const { deleteCart } = useContext(CartContext);
   const navigate = useNavigate();
   const sections = [
     { title: "Home", url: "/" },
@@ -133,20 +139,47 @@ function Header({ user, setUser }) {
         </form>
         {user ? (
           <Button
-            variant="outlined"
+            variant="text"
             size="small"
+            color="error"
+            sx={{
+              "&:hover": {
+                backgroundColor: red[700],
+                color: "white",
+              },
+            }}
             onClick={() => {
               localStorage.removeItem("user");
+              localStorage.removeItem("cart");
+              deleteCart();
+
               setUser(null);
+              toast.error(
+                <>
+                  <Box display={"flex"}>
+                    <LogoutOutlined sx={{ color: red[300] }} />{" "}
+                    <span>Logged Out</span>
+                  </Box>
+                </>,
+                { icon: false }
+              );
             }}
           >
             Logout
           </Button>
         ) : (
           <Button
-            onClick={() => navigate("/signin")}
-            variant="outlined"
+            onClick={() => {
+              navigate("/signin");
+            }}
+            variant="text"
             size="small"
+            sx={{
+              ":hover": {
+                backgroundColor: blue[700],
+                color: "white",
+              },
+            }}
           >
             Sign In
           </Button>

@@ -21,6 +21,7 @@ export const CartContext = createContext({
   deletePackage: () => {},
   addHotel: () => {},
   deleteHotel: () => {},
+  deleteCart: () => {},
 });
 
 function cartReducer(state, action) {
@@ -104,6 +105,11 @@ function cartReducer(state, action) {
       return newState;
     }
 
+    case "deleteCart": {
+      console.log("deletecart clciked");
+      return defaultState;
+    }
+
     default:
       return state;
   }
@@ -162,6 +168,12 @@ function StateProvider({ children }) {
     });
   }
 
+  function deleteCart() {
+    dispatch({
+      type: "deleteCart",
+    });
+  }
+
   const value = {
     cartState,
     addTour,
@@ -170,6 +182,7 @@ function StateProvider({ children }) {
     deletePackage,
     addHotel,
     deleteHotel,
+    deleteCart,
   };
   console.log(cartState);
 

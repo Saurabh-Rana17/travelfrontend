@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Autocomplete } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -65,15 +66,19 @@ export default function SignUp({ setUser }) {
       );
       if (!response.ok) {
         setErrmsg("something went wrong");
+        toast.error("Failed");
+
         setSubmitting(false);
       } else if (response.headers.get("content-type")) {
         const user = await response.json();
         localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
         setSubmitting(false);
+        toast.success("Signed Up Successfully");
         navigate("/");
       } else {
         setSubmitting(false);
+        toast.error("Failed");
         setFailed(true);
       }
     }
@@ -83,15 +88,6 @@ export default function SignUp({ setUser }) {
   const handleChange = (event, newValues) => {
     setSelectedItems(newValues);
   };
-
-  const optionArr = [
-    "Adventure",
-    "Hill & Mountain lover",
-    "Religious",
-    "Romantic",
-    "Relaxation",
-    "Trekking lover",
-  ];
 
   return (
     <ThemeProvider theme={defaultTheme}>
