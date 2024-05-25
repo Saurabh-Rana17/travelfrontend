@@ -26,11 +26,11 @@ import Error from "./Error.jsx";
 import Packages from "./Packages.jsx";
 import PackageDetail from "./PackageDetail.jsx";
 import HotelDetail from "./HotelDetail.jsx";
-import BookingSuccess from "./components/BookingSuccess.jsx";
-import InquirySuccess from "./components/InquirySuccess.jsx";
+import InquirySuccess from "./components/success/InquirySuccess.jsx";
 import Cart from "./Cart.jsx";
 import StateProvider from "./store/StateProvider.jsx";
 import UserProvider from "./store/UserProvider.jsx";
+import BookingSuccess from "./components/success/BookingSuccess.jsx";
 
 export default function App() {
   const router = createBrowserRouter(
