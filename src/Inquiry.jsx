@@ -12,7 +12,6 @@ import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SignIn from "./Pages/Auth/SignIn";
-import SignInComponent from "./components/SignInComponent";
 import AuthModal from "./components/Modal/AuthModal";
 
 import { userContext } from "./store/UserProvider";

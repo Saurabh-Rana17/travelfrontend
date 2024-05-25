@@ -1,7 +1,7 @@
 import { Dialog, DialogTitle, Divider, Typography } from "@mui/material";
 import React, { useState } from "react";
-import ActivateComponent from "./Modal/ActivateComponent";
-import VerifyComponent from "./Modal/VerifyComponent";
+import ActivateComponent from "./ActivateComponent";
+import VerifyComponent from "./VerifyComponent";
 
 export default function OtpModal({ showOtpModal, setShowOtpModal }) {
   const [content, setContent] = useState("generate");

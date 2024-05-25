@@ -13,7 +13,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { blue } from "@mui/material/colors";
-import { userContext } from "../store/UserProvider";
+import { userContext } from "../../store/UserProvider";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 

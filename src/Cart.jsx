@@ -21,8 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { red } from "@mui/material/colors";
 import { userContext } from "./store/UserProvider";
 
-import OtpModal from "./components/OtpModal";
 import AuthModal from "./components/Modal/AuthModal";
+import OtpModal from "./components/Modal/OtpModal";
 
 export default function Cart() {
   const navigate = useNavigate();

@@ -1,7 +1,8 @@
 import { Dialog, Divider, Typography } from "@mui/material";
 import React, { useState } from "react";
-import SignInComponent from "../SignInComponent";
+
 import SignUpComponent from "./SignUpComponent";
+import SignInComponent from "./SignInComponent";
 
 export default function AuthModal({ showModal, setShowModal }) {
   const [content, setContent] = useState("signin");
