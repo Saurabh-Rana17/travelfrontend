@@ -1,4 +1,4 @@
-import Header from "./Pages/Layout/Header.jsx";
+import Header from "../Layout/Header.jsx";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,16 +7,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, Chip, CircularProgress, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect, useState } from "react";
-import Loader from "./components/Skeleton/Loader.jsx";
+import Loader from "../../components/Skeleton/Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import FeaturedPost from "./FeaturedPost.jsx";
+import FeaturedPost from "../../FeaturedPost.jsx";
 import {
   AddShoppingCart,
   Dataset,
   ShoppingCartCheckout,
 } from "@mui/icons-material";
-import { CartContext } from "./store/StateProvider.jsx";
+import { CartContext } from "../../store/StateProvider.jsx";
 import { toast } from "react-toastify";
 
 export default function HotelDetail() {

@@ -13,7 +13,7 @@ import Category from "./Category.jsx";
 import Explore from "./Explore.jsx";
 import Layout from "./Pages/Layout/Layout.jsx";
 
-import Hotel from "./Hotel.jsx";
+import Hotel from "./Pages/Hotel/Hotel.jsx";
 import Cab from "./Cab.jsx";
 import Inquiry from "./Inquiry.jsx";
 import React, { useState } from "react";
@@ -22,7 +22,7 @@ import ValidateOtp from "./Pages/Auth/ValidateOtp.jsx";
 import Error from "./Error.jsx";
 import Packages from "./Packages.jsx";
 import PackageDetail from "./PackageDetail.jsx";
-import HotelDetail from "./HotelDetail.jsx";
+import HotelDetail from "./Pages/Hotel/HotelDetail.jsx";
 import InquirySuccess from "./components/success/InquirySuccess.jsx";
 import Cart from "./Cart.jsx";
 import StateProvider from "./store/StateProvider.jsx";

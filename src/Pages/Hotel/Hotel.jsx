@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import { styled } from "@mui/system";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import FeaturedPost from "./FeaturedPost";
 import HotelPost from "./HotelPost";
-import Loader from "./components/Skeleton/Loader";
-import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton";
+import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton";
 
 function Hotel() {
   const [loading, setLoading] = useState(false);
