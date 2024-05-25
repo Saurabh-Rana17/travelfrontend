@@ -1,11 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 
-import RecommendedPost from "../../RecommendedPost";
-import ExlporeMoreTour from "../../ExlporeMoreTour";
+import ExlporeMoreTour from "./ExlporeMoreTour";
 
 import VerticalSkeleton from "../../components/Skeleton/VerticalSkeleton";
 import { userContext } from "../../store/UserProvider";
+import RecommendedPost from "./RecommendedPost";
 
 export default function Recommended() {
   const [post, setPost] = useState([]);

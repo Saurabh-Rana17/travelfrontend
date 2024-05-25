@@ -205,7 +205,13 @@ function Header() {
             key={section.title}
             variant="body2"
             to={section.url}
-            sx={{ p: 1, flexShrink: 0 }}
+            sx={{
+              p: 1,
+              flexShrink: 0,
+              ":hover": {
+                backgroundColor: grey[200],
+              },
+            }}
           >
             {section.title}
           </Link>

@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import FeaturedPost from "./FeaturedPost";
+import FeaturedPost from "./components/Post/FeaturedPost";
 import Loader from "./components/Skeleton/Loader";
 import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton";
 import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton";

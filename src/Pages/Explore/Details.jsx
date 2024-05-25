@@ -1,20 +1,14 @@
-import Header from "./Pages/Layout/Header.jsx";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Chip, CircularProgress } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import { Button, Chip } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import Loader from "./components/Skeleton/Loader.jsx";
-import { CartContext } from "./store/StateProvider.jsx";
-import {
-  AddCircleOutline,
-  AddShoppingCart,
-  ShoppingCartCheckout,
-} from "@mui/icons-material";
+import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { toast } from "react-toastify";
+import { CartContext } from "../../store/StateProvider.jsx";
+import Loader from "../../components/Skeleton/Loader.jsx";
 
 export default function Details() {
   const params = useParams();

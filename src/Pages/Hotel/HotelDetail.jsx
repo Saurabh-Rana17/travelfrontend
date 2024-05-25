@@ -10,7 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import Loader from "../../components/Skeleton/Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import FeaturedPost from "../../FeaturedPost.jsx";
+import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
 import {
   AddShoppingCart,
   Dataset,

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import FeaturedPost from "../../FeaturedPost.jsx";
+import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 

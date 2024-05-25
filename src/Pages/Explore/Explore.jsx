@@ -1,10 +1,7 @@
 import { Grid, Typography, createTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import FeaturedPost from "./FeaturedPost";
-import { RotateLoader } from "react-spinners";
-import Loader from "./components/Skeleton/Loader";
-import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton";
-import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton";
+import FeaturedPost from "../../components/Post/FeaturedPost";
+import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton";
 
 function Explore() {
   const [post, setPost] = useState(null);

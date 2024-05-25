@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import FeaturedPost from "./FeaturedPost.jsx";
+import FeaturedPost from "./components/Post/FeaturedPost.jsx";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Loader from "./components/Skeleton/Loader.jsx";
