@@ -1,7 +1,7 @@
 import { Box, Button, Link, Paper, TextField, Typography } from "@mui/material";
 import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../store/UserProvider";
+import { userContext } from "../../store/UserProvider";
 import { toast } from "react-toastify";
 
 export default function VerifyComponent({ setContent, setShowOtpModal }) {

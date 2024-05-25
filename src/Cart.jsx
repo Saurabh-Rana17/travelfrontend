@@ -20,8 +20,9 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { red } from "@mui/material/colors";
 import { userContext } from "./store/UserProvider";
-import AuthModal from "./components/AuthModal";
+
 import OtpModal from "./components/OtpModal";
+import AuthModal from "./components/Modal/AuthModal";
 
 export default function Cart() {
   const navigate = useNavigate();

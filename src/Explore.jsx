@@ -4,7 +4,7 @@ import FeaturedPost from "./FeaturedPost";
 import { RotateLoader } from "react-spinners";
 import Loader from "./Loader";
 import HorizontalSkeleton from "./HorizontalSkeleton";
-import VerticalSkeleton from "./VerticalSkeleton";
+import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton";
 
 function Explore() {
   const [post, setPost] = useState(null);

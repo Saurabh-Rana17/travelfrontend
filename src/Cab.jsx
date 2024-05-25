@@ -11,7 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userContext } from "./store/UserProvider";
-import AuthModal from "./components/AuthModal";
+import AuthModal from "./components/Modal/AuthModal";
 
 export default function Cab() {
   const navigate = useNavigate();

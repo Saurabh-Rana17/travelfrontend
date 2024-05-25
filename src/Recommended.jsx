@@ -12,7 +12,7 @@ import FeaturedPost from "./FeaturedPost";
 import RecommendedPost from "./RecommendedPost";
 import ExlporeMoreTour from "./ExlporeMoreTour";
 import Loader from "./Loader";
-import VerticalSkeleton from "./VerticalSkeleton";
+import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton";
 import { userContext } from "./store/UserProvider";
 
 export default function Recommended() {

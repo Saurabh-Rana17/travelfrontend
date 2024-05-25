@@ -1,4 +1,4 @@
-import Header from "./Header.jsx";
+import Header from "./Pages/Layout/Header.jsx";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

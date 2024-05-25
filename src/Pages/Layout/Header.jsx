@@ -10,12 +10,12 @@ import { useNavigate, NavLink, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import { blue, blueGrey, grey, red } from "@mui/material/colors";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CartBadge from "./CartBadge";
+import CartBadge from "../../CartBadge";
 import { toast } from "react-toastify";
 import { LogoutOutlined } from "@mui/icons-material";
 import { useContext } from "react";
-import { CartContext } from "./store/StateProvider";
-import { userContext } from "./store/UserProvider";
+import { CartContext } from "../../store/StateProvider";
+import { userContext } from "../../store/UserProvider";
 
 function Header() {
   const { userState, setUserState } = useContext(userContext);

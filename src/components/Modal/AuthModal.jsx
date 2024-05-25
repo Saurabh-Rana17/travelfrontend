@@ -1,6 +1,6 @@
 import { Dialog, Divider, Typography } from "@mui/material";
 import React, { useState } from "react";
-import SignInComponent from "./SignInComponent";
+import SignInComponent from "../SignInComponent";
 import SignUpComponent from "./SignUpComponent";
 
 export default function AuthModal({ showModal, setShowModal }) {

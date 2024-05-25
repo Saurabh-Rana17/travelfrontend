@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import FeaturedPost from "./FeaturedPost";
 import Loader from "./Loader";
 import HorizontalSkeleton from "./HorizontalSkeleton";
-import VerticalSkeleton from "./VerticalSkeleton";
+import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton";
 
 function Packages() {
   const [packages, setPackages] = useState([]);

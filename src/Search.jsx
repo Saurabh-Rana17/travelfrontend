@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import Header from "./Header.jsx";
+import Header from "./Pages/Layout/Header.jsx";
 import { useParams } from "react-router-dom";
 import FeaturedPost from "./FeaturedPost.jsx";
 import Grid from "@mui/material/Grid";
