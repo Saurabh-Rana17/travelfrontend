@@ -1,73 +1,87 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  Divider,
+  OutlinedInput,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { userContext } from "./store/UserProvider";
-import AuthModal from "./components/Modal/AuthModal";
 
-export default function Cab() {
+import { userContext } from "../../store/UserProvider";
+import AuthModal from "../../components/Modal/AuthModal";
+
+export default function Inquiry() {
   const navigate = useNavigate();
   const { userState: user } = useContext(userContext);
-  const [pickUp, setPickUp] = useState("");
-  const [dropUp, setDropUp] = useState("");
-  const [noOfPeople, setNoOfPeople] = useState("");
-  const [date, setDate] = useState("");
+  const [query, setQuery] = useState("");
+  const [queryDetail, setQueryDetail] = useState("");
   const [empty, setEmpty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    let currentDate = new Date();
 
-    currentDate.setDate(currentDate.getDate() + 1);
-
-    const tomorrowDate = currentDate.toJSON().slice(0, 10);
-
-    setDate(tomorrowDate);
-    console.log(tomorrowDate);
-  }, []);
   async function handleClick() {
     setEmpty(false);
-    if (!pickUp || !dropUp || !noOfPeople || !date) {
+    if (!query || !queryDetail) {
       setEmpty(true);
     } else if (!user) {
       setShowModal(true);
     } else {
       setIsSubmitting(true);
-      const response = await fetch("https://travel-rv5s.onrender.com/cab", {
+      const response = await fetch("https://travel-rv5s.onrender.com/inquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: user.email,
-          pickUp: pickUp,
-          dropUp: dropUp,
-          date: date,
-          noOfPeople: noOfPeople,
+          summary: query,
+          description: queryDetail,
         }),
       });
       const res = await response.json();
-      console.log(res);
       setIsSubmitting(false);
-      toast.success("Submitted Successfully");
+      toast.success("Sent Successfully");
       navigate("/inquirysuccess");
     }
   }
 
+  const hrStyles = {
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "sans-serif",
+    width: "100%",
+    margin: "15px auto",
+    color: "#444",
+  };
+
+  const hrLineStyles = {
+    flexGrow: 1,
+    height: "1px",
+    backgroundColor: "#444",
+    marginRight: "10px", // Adjust as needed
+    marginLeft: "10px", // Adjust as needed
+  };
+
+  const textStyles = {
+    padding: "0 10px", // Adjust as needed
+  };
   return (
     <>
       <div style={{ margin: "auto" }}>
-        <AuthModal setShowModal={setShowModal} showModal={showModal} />
+        <AuthModal showModal={showModal} setShowModal={setShowModal} />
+
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "auto",
             marginY: "3rem",
             flexDirection: "row",
-            // width: "38rem",
-            textAlign: "center",
           }}
         >
           <Paper
@@ -89,49 +103,25 @@ export default function Cab() {
               gutterBottom
               variant="h5"
             >
-              Entere Your Cab Requirements
+              Have any doubts or questions ? Contact us
             </Typography>
-
             <TextField
               sx={{ marginBottom: "1.5rem" }}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               fullWidth
               required
-              label="Pick Up Point"
-              onChange={(e) => setPickUp(e.target.value)}
+              label="Enter Question"
             />
-
             <TextField
-              sx={{ marginBottom: "1.5rem" }}
+              value={queryDetail}
+              onChange={(e) => setQueryDetail(e.target.value)}
               fullWidth
               required
-              label="Drop Location"
-              onChange={(e) => setDropUp(e.target.value)}
+              multiline
+              rows={4}
+              label="Describe your Question"
             />
-            <Grid container spacing={2}>
-              <Grid item>
-                <TextField
-                  sx={{ marginBottom: "1.5rem" }}
-                  fullWidth
-                  required
-                  type="number"
-                  label="No of People"
-                  onChange={(e) => setNoOfPeople(e.target.value)}
-                />
-              </Grid>
-              <Grid sm={5.7} item>
-                <TextField
-                  sx={{ marginBottom: "1.5rem" }}
-                  fullWidth
-                  required
-                  type="date"
-                  label="date"
-                  value={date}
-                  // defaultValue={new Date().toJSON().slice(0, 10)}
-                  onChange={(e) => setDate(e.target.value)}
-                />
-              </Grid>
-            </Grid>
-
             {empty && (
               <Typography paddingTop={1} align={"center"} sx={{ color: "red" }}>
                 Please enter a value
@@ -141,7 +131,7 @@ export default function Cab() {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                // marginTop: "1rem",
+                marginTop: "2rem",
               }}
             >
               <Button
@@ -153,6 +143,17 @@ export default function Cab() {
                 {isSubmitting ? "Sending" : "Send"}
               </Button>
             </Box>
+
+            <div style={hrStyles}>
+              <div style={hrLineStyles}></div>
+              <span className="text-hr__text" style={textStyles}>
+                Or Call us Directly
+              </span>
+              <div style={hrLineStyles}></div>
+            </div>
+            <Typography textAlign={"center"} variant="body1">
+              <b>📞 Phone No :-</b> +91 76181 69600
+            </Typography>
           </Paper>
         </Box>
       </div>

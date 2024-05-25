@@ -14,8 +14,6 @@ import Explore from "./Explore.jsx";
 import Layout from "./Pages/Layout/Layout.jsx";
 
 import Hotel from "./Pages/Hotel/Hotel.jsx";
-import Cab from "./Cab.jsx";
-import Inquiry from "./Inquiry.jsx";
 import React, { useState } from "react";
 import Activate from "./Pages/Auth/Activate.jsx";
 import ValidateOtp from "./Pages/Auth/ValidateOtp.jsx";
@@ -29,6 +27,8 @@ import StateProvider from "./store/StateProvider.jsx";
 import UserProvider from "./store/UserProvider.jsx";
 import BookingSuccess from "./components/success/BookingSuccess.jsx";
 import Home from "./Pages/Home/Home.jsx";
+import Cab from "./Pages/Cab/Cab.jsx";
+import Inquiry from "./Pages/Inquiry/Inquiry.jsx";
 
 export default function App() {
   const router = createBrowserRouter(
