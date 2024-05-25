@@ -1,12 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Skeleton } from "@mui/material";
 import React from "react";
 
 function SkeletonItem() {

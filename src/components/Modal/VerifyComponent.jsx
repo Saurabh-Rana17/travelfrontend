@@ -38,7 +38,7 @@ export default function VerifyComponent({ setContent, setShowOtpModal }) {
         user.active = true;
         setUserState(user);
         setShowOtpModal(false);
-        toast.success("Account Activated");
+        toast.success("Account Verified");
       }
     }
   }

@@ -3,8 +3,6 @@ import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import Loader from "../../components/Skeleton/Loader.jsx";
 
 export default function Search() {
@@ -26,8 +24,6 @@ export default function Search() {
     };
     fetchData();
   }, [param.query]);
-
-  const defaultTheme = createTheme();
 
   return (
     <>

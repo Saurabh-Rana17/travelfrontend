@@ -13,16 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { CartContext } from "./store/StateProvider";
-import { Delete, DeleteForever, LogoutOutlined } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { red } from "@mui/material/colors";
-import { userContext } from "./store/UserProvider";
-
-import AuthModal from "./components/Modal/AuthModal";
-import OtpModal from "./components/Modal/OtpModal";
+import { CartContext } from "../../store/StateProvider";
+import { userContext } from "../../store/UserProvider";
+import AuthModal from "../../components/Modal/AuthModal";
+import OtpModal from "../../components/Modal/OtpModal";
 
 export default function Cart() {
   const navigate = useNavigate();

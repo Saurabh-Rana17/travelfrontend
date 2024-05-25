@@ -1,17 +1,15 @@
-import Header from "./Pages/Layout/Header.jsx";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Chip, CircularProgress, Grid } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import { Button, Grid } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import Loader from "./components/Skeleton/Loader.jsx";
+import Loader from "../../components/Skeleton/Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import FeaturedPost from "./components/Post/FeaturedPost.jsx";
-import { CartContext } from "./store/StateProvider.jsx";
+import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
+import { CartContext } from "../../store/StateProvider.jsx";
 import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { toast } from "react-toastify";
 

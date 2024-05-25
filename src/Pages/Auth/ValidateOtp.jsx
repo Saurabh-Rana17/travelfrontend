@@ -1,17 +1,12 @@
-import {
-  Box,
-  Button,
-  OutlinedInput,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useRef, useState } from "react";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../../store/UserProvider";
+import { toast } from "react-toastify";
 
 export default function ValidateOtp() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { userState: user, setUserState } = useContext(userContext);
   const [otp, setOtp] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [otpInvalid, setOtpInvalid] = useState(false);
@@ -43,7 +38,8 @@ export default function ValidateOtp() {
       setIsVerifying(false);
       if (res) {
         user.active = true;
-        localStorage.setItem("user", JSON.stringify(user));
+        setUserState(user);
+        toast.success("Account Verified");
         navigate("/");
       }
     }
