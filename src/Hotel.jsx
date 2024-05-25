@@ -8,7 +8,7 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import FeaturedPost from "./FeaturedPost";
 import HotelPost from "./HotelPost";
 import Loader from "./Loader";
-import HorizontalSkeleton from "./HorizontalSkeleton";
+import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton";
 
 function Hotel() {
   const [loading, setLoading] = useState(false);

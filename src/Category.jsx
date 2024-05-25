@@ -9,7 +9,7 @@ import FeaturedPost from "./FeaturedPost.jsx";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Loader from "./Loader.jsx";
-import HorizontalSkeleton from "./HorizontalSkeleton.jsx";
+import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton.jsx";
 import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton.jsx";
 
 export default function Category() {

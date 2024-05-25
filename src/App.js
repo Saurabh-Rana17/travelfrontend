@@ -7,7 +7,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Home from "./Home.jsx";
 import Search from "./Search.jsx";
 import SignUp from "./Pages/Auth/SignUp.jsx";
 import Details from "./Details.jsx";
@@ -31,6 +30,7 @@ import Cart from "./Cart.jsx";
 import StateProvider from "./store/StateProvider.jsx";
 import UserProvider from "./store/UserProvider.jsx";
 import BookingSuccess from "./components/success/BookingSuccess.jsx";
+import Home from "./Pages/Home/Home.jsx";
 
 export default function App() {
   const router = createBrowserRouter(

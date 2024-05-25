@@ -1,21 +1,19 @@
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
+
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "./Pages/Layout/Header.jsx";
 import MainFeaturedPost from "./MainFeaturedPost";
-import FeaturedPost from "./FeaturedPost";
+
 import Main from "./Main.jsx";
 import Sidebar from "./Sidebar";
-import Footer from "./Pages/Layout/Footer.jsx";
+
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import ExplorePost from "./CategoryPost.jsx";
 import RecommendedPost from "./Recommended.jsx";
-import HorizontalSkeleton from "./HorizontalSkeleton.jsx";
+import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton.jsx";
 
 const mainFeaturedPost = {
   title: "Devbhoomi Uttarakhand",

@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FeaturedPost from "./FeaturedPost";
 import Loader from "./Loader";
-import HorizontalSkeleton from "./HorizontalSkeleton";
+import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton";
 import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton";
 
 function Packages() {
