@@ -17,8 +17,8 @@ import Hotel from "./Hotel.jsx";
 import Cab from "./Cab.jsx";
 import Inquiry from "./Inquiry.jsx";
 import React, { useState } from "react";
-import Activate from "./Activate.jsx";
-import ValidateOtp from "./ValidateOtp.jsx";
+import Activate from "./Pages/Auth/Activate.jsx";
+import ValidateOtp from "./Pages/Auth/ValidateOtp.jsx";
 import Error from "./Error.jsx";
 import Packages from "./Packages.jsx";
 import PackageDetail from "./PackageDetail.jsx";
@@ -41,7 +41,6 @@ export default function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/tour/:id" element={<Details />} />
         <Route path="/category/:category" element={<Category />} />
-
         <Route path="/hotel" element={<Hotel />} />
         <Route path="/cab" element={<Cab />} />
         <Route path="/contact" element={<Inquiry />} />

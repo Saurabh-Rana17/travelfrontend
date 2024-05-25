@@ -5,17 +5,16 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { Badge, Box, Input, Tooltip } from "@mui/material";
+import { Box, Input, Tooltip } from "@mui/material";
 import { useNavigate, NavLink, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
-import { blue, blueGrey, grey, red } from "@mui/material/colors";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CartBadge from "../../CartBadge";
+import { blue, grey, red } from "@mui/material/colors";
 import { toast } from "react-toastify";
 import { LogoutOutlined } from "@mui/icons-material";
 import { useContext } from "react";
 import { CartContext } from "../../store/StateProvider";
 import { userContext } from "../../store/UserProvider";
+import CartBadge from "./CartBadge";
 
 function Header() {
   const { userState, setUserState } = useContext(userContext);

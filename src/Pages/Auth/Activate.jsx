@@ -1,7 +1,7 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
-import { userContext } from "./store/UserProvider";
+import { userContext } from "../../store/UserProvider";
 
 export default function Activate() {
   const [isGenerating, setIsGenerating] = useState(false);
