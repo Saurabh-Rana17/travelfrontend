@@ -1,13 +1,11 @@
-import Box from "@mui/material/Box";
-import Header from "./Pages/Layout/Header.jsx";
 import { useParams } from "react-router-dom";
-import FeaturedPost from "./FeaturedPost.jsx";
+import FeaturedPost from "../../FeaturedPost.jsx";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Container from "@mui/material/Container";
-import Loader from "./Loader.jsx";
+
+import Loader from "../../components/Skeleton/Loader.jsx";
 
 export default function Search() {
   const param = useParams();

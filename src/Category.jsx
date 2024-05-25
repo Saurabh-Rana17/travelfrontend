@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import FeaturedPost from "./FeaturedPost.jsx";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import Loader from "./Loader.jsx";
+import Loader from "./components/Skeleton/Loader.jsx";
 import HorizontalSkeleton from "./components/Skeleton/HorizontalSkeleton.jsx";
 import VerticalSkeleton from "./components/Skeleton/VerticalSkeleton.jsx";
 

@@ -1,20 +1,18 @@
 import {
-  HashRouter,
   Navigate,
   Route,
   RouterProvider,
-  Routes,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Search from "./Search.jsx";
+import Search from "./Pages/Search/Search.jsx";
 import SignUp from "./Pages/Auth/SignUp.jsx";
 import Details from "./Details.jsx";
 import SignIn from "./Pages/Auth/SignIn.jsx";
 import Category from "./Category.jsx";
 import Explore from "./Explore.jsx";
 import Layout from "./Pages/Layout/Layout.jsx";
-import BookTour from "./BookTour.jsx";
+
 import Hotel from "./Hotel.jsx";
 import Cab from "./Cab.jsx";
 import Inquiry from "./Inquiry.jsx";
@@ -43,7 +41,7 @@ export default function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/tour/:id" element={<Details />} />
         <Route path="/category/:category" element={<Category />} />
-        <Route path="/book/:tourId" element={<BookTour />} />
+
         <Route path="/hotel" element={<Hotel />} />
         <Route path="/cab" element={<Cab />} />
         <Route path="/contact" element={<Inquiry />} />

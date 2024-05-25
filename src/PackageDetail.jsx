@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, Chip, CircularProgress, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect, useState } from "react";
-import Loader from "./Loader.jsx";
+import Loader from "./components/Skeleton/Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import FeaturedPost from "./FeaturedPost.jsx";

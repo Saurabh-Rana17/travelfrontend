@@ -1,17 +1,9 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import FeaturedPost from "../../FeaturedPost";
+
 import RecommendedPost from "../../RecommendedPost";
 import ExlporeMoreTour from "../../ExlporeMoreTour";
-import Loader from "../../Loader";
+
 import VerticalSkeleton from "../../components/Skeleton/VerticalSkeleton";
 import { userContext } from "../../store/UserProvider";
 
