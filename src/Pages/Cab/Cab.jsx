@@ -23,7 +23,6 @@ export default function Cab() {
     const tomorrowDate = currentDate.toJSON().slice(0, 10);
 
     setDate(tomorrowDate);
-    console.log(tomorrowDate);
   }, []);
   async function handleClick() {
     setEmpty(false);
@@ -47,7 +46,7 @@ export default function Cab() {
         }),
       });
       const res = await response.json();
-      console.log(res);
+
       setIsSubmitting(false);
       toast.success("Submitted Successfully");
       navigate("/inquirysuccess");

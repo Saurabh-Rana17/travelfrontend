@@ -31,7 +31,6 @@ export default function UserProvider({ children }) {
   );
 
   function setUserState(user) {
-    console.log("reached st us stte");
     dispatch({
       type: "setUserState",
       payload: user,
@@ -39,6 +38,6 @@ export default function UserProvider({ children }) {
   }
 
   const value = { userState, setUserState };
-  console.log(userState);
+
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 }
