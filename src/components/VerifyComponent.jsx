@@ -1,10 +1,11 @@
 import { Box, Button, Link, Paper, TextField, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../store/UserProvider";
+import { toast } from "react-toastify";
 
-export default function VerifyComponent({ setContent }) {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+export default function VerifyComponent({ setContent, setShowOtpModal }) {
+  const { userState: user, setUserState } = useContext(userContext);
   const [otp, setOtp] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [otpInvalid, setOtpInvalid] = useState(false);
@@ -35,8 +36,9 @@ export default function VerifyComponent({ setContent }) {
       setIsVerifying(false);
       if (res) {
         user.active = true;
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate("/");
+        setUserState(user);
+        setShowOtpModal(false);
+        toast.success("Account Activated");
       }
     }
   }

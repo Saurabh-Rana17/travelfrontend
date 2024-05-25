@@ -13,7 +13,12 @@ export default function OtpModal({ showOtpModal, setShowOtpModal }) {
 
       <Divider />
       {content === "generate" && <ActivateComponent setContent={setContent} />}
-      {content === "verify" && <VerifyComponent setContent={setContent} />}
+      {content === "verify" && (
+        <VerifyComponent
+          setShowOtpModal={setShowOtpModal}
+          setContent={setContent}
+        />
+      )}
     </Dialog>
   );
 }
