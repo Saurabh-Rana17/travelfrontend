@@ -39,7 +39,7 @@ function MainFeaturedPost() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
-            backgroundImage: `url("https://lh3.googleusercontent.com/drive-viewer/AKGpihbe7MC39Zk4WvjeGzoIe4i_uoMgBGJjvAGd3kWQ2nUGk-srSte926e9aKBNp47j3dm9KJb_fiCs74S3M1-pGwhyyftoRUZNo4A=s1600-rw-v1")`,
+            backgroundImage: `url("bg.jpeg")`,
           }}
         >
           {/* Increase the priority of the hero background image */}

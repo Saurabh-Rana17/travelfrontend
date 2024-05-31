@@ -18,8 +18,6 @@ function Explore() {
     fetchData();
   }, []);
 
-  const defaultTheme = createTheme();
-
   return (
     <>
       <Typography
