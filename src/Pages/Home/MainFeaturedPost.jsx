@@ -6,22 +6,24 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import MainFeaturedSkeleton from "../../components/Skeleton/MainFeaturedSkeleton";
-import { createBrowserRouter, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 function MainFeaturedPost() {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://travel-rv5s.onrender.com/package/662dc65bd78237f957c68776`
-      );
-      const result = await response.json();
-      setPost(result);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  const {
+    data: post,
+    isPending: loading,
+    isError,
+    error,
+  } = useFetch(
+    ["package/662dc65bd78237f957c68776"],
+    "https://travel-rv5s.onrender.com/package/662dc65bd78237f957c68776"
+  );
+
+  if (isError) {
+    return <p>Error : {error.message}</p>;
+  }
+
   return (
     <>
       {loading ? (

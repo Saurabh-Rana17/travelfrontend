@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+
 import Search from "./Pages/Search/Search.jsx";
 import SignUp from "./Pages/Auth/SignUp.jsx";
 import SignIn from "./Pages/Auth/SignIn.jsx";
@@ -28,7 +29,9 @@ import Inquiry from "./Pages/Inquiry/Inquiry.jsx";
 import Explore from "./Pages/Explore/Explore.jsx";
 import Details from "./Pages/Explore/Details.jsx";
 import Cart from "./Pages/Cart/Cart.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -57,11 +60,13 @@ export default function App() {
   );
   return (
     <>
-      <StateProvider>
-        <UserProvider>
-          <RouterProvider router={router} />
-        </UserProvider>
-      </StateProvider>
+      <QueryClientProvider client={queryClient}>
+        <StateProvider>
+          <UserProvider>
+            <RouterProvider router={router} />
+          </UserProvider>
+        </StateProvider>
+      </QueryClientProvider>
     </>
   );
 }

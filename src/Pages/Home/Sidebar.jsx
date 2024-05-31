@@ -6,9 +6,23 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
 
-function Sidebar(props) {
-  const { description, social, title } = props;
+const sidebarData = {
+  title: "About",
+  description:
+    "At [Company Name], we unlock the wonders of Uttarakhand for you with expert guides and carefully curated itineraries. Join us to experience the magic firsthand.",
+  social: [
+    { name: "GitHub", icon: GitHubIcon },
+    { name: "X", icon: XIcon },
+    { name: "Facebook", icon: FacebookIcon },
+  ],
+};
+
+function Sidebar() {
+  const { description, social, title } = sidebarData;
 
   return (
     <Grid item xs={12} md={4}>
@@ -41,15 +55,15 @@ function Sidebar(props) {
   );
 }
 
-Sidebar.propTypes = {
-  description: PropTypes.string.isRequired,
-  social: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.elementType,
-      name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  title: PropTypes.string.isRequired,
-};
+// Sidebar.propTypes = {
+//   description: PropTypes.string.isRequired,
+//   social: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       icon: PropTypes.elementType,
+//       name: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+//   title: PropTypes.string.isRequired,
+// };
 
 export default Sidebar;

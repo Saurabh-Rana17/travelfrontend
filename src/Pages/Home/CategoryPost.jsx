@@ -9,7 +9,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 function CategoryPost({ post }) {
   let navigate = useNavigate();
-  function exploreHandler(category) {
+  function exploreHandler() {
     navigate("/category/" + post.name);
   }
 
