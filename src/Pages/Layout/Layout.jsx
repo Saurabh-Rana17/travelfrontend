@@ -5,12 +5,14 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Bounce, ToastContainer } from "react-toastify";
+import ScrollToTop from "../../utility/ScrollToTop";
 
 export default function Layout() {
   const defaultTheme = createTheme();
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ScrollToTop />
       <CssBaseline />
       <Container sx={{ minHeight: "90vh" }} maxWidth="lg">
         <Header />
