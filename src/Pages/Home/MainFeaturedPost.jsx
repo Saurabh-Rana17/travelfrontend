@@ -1,134 +1,105 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import MainFeaturedSkeleton from "../../components/Skeleton/MainFeaturedSkeleton";
 import { Link as RouterLink } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-
+import { MainFeaturesPostData as post } from "../../utility/CONSTANT";
 function MainFeaturedPost() {
-  const {
-    data: post,
-    isPending: loading,
-    isError,
-    error,
-  } = useFetch(
-    ["package/662dc65bd78237f957c68776"],
-    "https://travel-rv5s.onrender.com/package/662dc65bd78237f957c68776"
-  );
-
-  if (isError) {
-    return <p>Error : {error.message}</p>;
-  }
-
   return (
     <>
-      {loading ? (
-        <MainFeaturedSkeleton />
-      ) : (
-        <Paper
+      <Paper
+        sx={{
+          height: {
+            sm: "70vh",
+          },
+          position: "relative",
+          backgroundColor: "grey.800",
+          color: "#fff",
+          mb: 4,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundImage: `url("bg.jpeg")`,
+        }}
+      >
+        <Box
           sx={{
-            height: {
-              sm: "70vh",
-            },
-            position: "relative",
-            backgroundColor: "grey.800",
-            color: "#fff",
-            mb: 4,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundImage: `url("bg.jpeg")`,
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            backgroundColor: "rgba(0,0,0,.3)",
           }}
-        >
-          {/* Increase the priority of the hero background image */}
-          {
-            <img
-              style={{ display: "none" }}
-              src={post.image}
-              alt={post.imageText}
-            />
-          }
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              right: 0,
-              left: 0,
-              backgroundColor: "rgba(0,0,0,.3)",
-            }}
-          />
-          <Grid container>
-            <Grid item md={6}>
-              <Box
+        />
+        <Grid container>
+          <Grid item md={6}>
+            <Box
+              sx={{
+                position: "relative",
+                p: { xs: 3, md: 6 },
+                pr: { md: 0 },
+              }}
+            >
+              <Typography
+                component="h1"
+                variant="h3"
+                color="inherit"
+                gutterBottom
                 sx={{
-                  position: "relative",
-                  p: { xs: 3, md: 6 },
-                  pr: { md: 0 },
+                  marginBottom: {
+                    sm: "3rem",
+                  },
                 }}
               >
-                <Typography
-                  component="h1"
-                  variant="h3"
-                  color="inherit"
-                  gutterBottom
-                  sx={{
-                    marginBottom: {
-                      sm: "3rem",
-                    },
-                  }}
-                >
-                  {post.name}
-                </Typography>
-                <Typography
-                  sx={{
-                    marginBottom: {
-                      sm: "3rem",
-                    },
-                    display: {
-                      xs: "none",
-                      sm: "block",
-                    },
-                  }}
-                  variant="h5"
-                  color="inherit"
-                  paragraph
-                >
-                  {post.description.substring(0, 199)}...
-                </Typography>
-                <Typography
-                  sx={{
-                    marginBottom: {
-                      sm: "3rem",
-                    },
-                    display: {
-                      xs: "block",
-                      sm: "none",
-                    },
-                  }}
-                  variant="h5"
-                  color="inherit"
-                  paragraph
-                >
-                  {post.description.substring(0, 99)}...
-                </Typography>
-                <Link
-                  component={RouterLink}
-                  sx={{ color: "white" }}
-                  variant="subtitle1"
-                  to={`/package/${post.id}`}
-                >
-                  Continue reading…
-                </Link>
-              </Box>
-            </Grid>
+                {post.name}
+              </Typography>
+              <Typography
+                sx={{
+                  marginBottom: {
+                    sm: "3rem",
+                  },
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                  },
+                }}
+                variant="h5"
+                color="inherit"
+                paragraph
+              >
+                {post.description.substring(0, 199)}...
+              </Typography>
+              <Typography
+                sx={{
+                  marginBottom: {
+                    sm: "3rem",
+                  },
+                  display: {
+                    xs: "block",
+                    sm: "none",
+                  },
+                }}
+                variant="h5"
+                color="inherit"
+                paragraph
+              >
+                {post.description.substring(0, 99)}...
+              </Typography>
+              <Link
+                component={RouterLink}
+                sx={{ color: "white" }}
+                variant="subtitle1"
+                to={`/package/${post.id}`}
+              >
+                Continue reading…
+              </Link>
+            </Box>
           </Grid>
-        </Paper>
-      )}
+        </Grid>
+      </Paper>
     </>
   );
 }
