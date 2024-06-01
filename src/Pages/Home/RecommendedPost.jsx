@@ -42,7 +42,7 @@ function RecommendedPost({ post }) {
               {post.name ? post.name : post.title}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {post.description.substring(0, 185)} ...
+              {post.description.substring(0, 177)}...
             </Typography>
             <Typography
               variant="subtitle1"

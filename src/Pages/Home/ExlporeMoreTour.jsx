@@ -6,13 +6,14 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
+
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 export default function ExlporeMoreTour() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const description =
     "Uttarakhand, nestled in the Himalayas, boasts diverse landscapes attracting tourists worldwide. From the spiritual ambiance of Rishikesh and Haridwar to the serene lakes of Nainital, and the adventure hub of Jim Corbett National Park, Uttarakhand offers a plethora of experiences. Trekking in the Garhwal and Kumaon regions, witnessing the majestic peaks like Nanda Devi, and exploring quaint hill stations like Mussoorie make it a haven for nature lovers and adventurers alike.";
+
   function exploreHandler() {
     navigate("/explore");
   }
