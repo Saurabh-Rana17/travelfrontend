@@ -45,8 +45,7 @@ export default function PackageDetail() {
       imgf.shift();
       setImgArr(imgf);
     }
-    // };
-    // fetchData();
+
     checkIfPresent();
   }, [data]);
 

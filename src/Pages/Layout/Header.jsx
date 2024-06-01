@@ -190,6 +190,10 @@ function Header() {
             variant="text"
             size="small"
             sx={{
+              display: {
+                xs: active ? "none" : "inline-block",
+                sm: "inline-block",
+              },
               ":hover": {
                 backgroundColor: blue[700],
                 color: "white",
