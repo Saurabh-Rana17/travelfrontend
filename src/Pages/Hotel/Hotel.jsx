@@ -1,39 +1,58 @@
 import React, { useEffect, useState } from "react";
-
 import Grid from "@mui/material/Grid";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import HotelPost from "./HotelPost";
 import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchData = async () => {
+  const response = await fetch(
+    `https://travel-rv5s.onrender.com/hotel/filter`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cost: "0,100000000",
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch ${response.status}  ${response.statusText}`
+    );
+  }
+  return response.json();
+};
 
 function Hotel() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [searchLoading, setLoading] = useState();
+  const [searchData, setData] = useState([]);
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
+  const [showFetch, setShowFetch] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://travel-rv5s.onrender.com/hotel/filter`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            cost: "0,100000000",
-          }),
-        }
-      );
-      const result = await response.json();
-      setData(result);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  const {
+    data,
+    isPending: loading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["allHotel"],
+    queryFn: fetchData,
+  });
+
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
+  }
+
   async function handleClick() {
     const postData = {};
     if (name.trim()) {
@@ -52,6 +71,7 @@ function Hotel() {
     } else {
       postData.cost += "," + 10000000;
     }
+    setShowFetch(false);
     setLoading(true);
     const res = await fetch(`https://travel-rv5s.onrender.com/hotel/filter`, {
       method: "POST",
@@ -60,6 +80,7 @@ function Hotel() {
       },
       body: JSON.stringify(postData),
     });
+
     const response = await res.json();
     setLoading(false);
     setData(response);
@@ -141,7 +162,6 @@ function Hotel() {
           </Button>
         </Paper>
       </Box>
-
       <Typography
         sx={{ textAlign: "center", paddingY: "2rem" }}
         component={"h1"}
@@ -149,14 +169,23 @@ function Hotel() {
       >
         Explore All Hotel
       </Typography>
-      {!loading && (
+      {showFetch && !loading && (
         <Grid container spacing={4}>
           {data.map((post) => (
             <HotelPost key={post.id} post={post} />
           ))}
         </Grid>
       )}
-      {loading && <HorizontalSkeleton />}
+      {loading && showFetch && <HorizontalSkeleton />}
+      {/* showing data after fetch */}
+      {!showFetch && !searchLoading && (
+        <Grid container spacing={4}>
+          {searchData.map((post) => (
+            <HotelPost key={post.id} post={post} />
+          ))}
+        </Grid>
+      )}
+      {!showFetch && searchLoading && <HorizontalSkeleton />}
     </>
   );
 }
