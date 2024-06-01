@@ -10,8 +10,8 @@ export default function () {
     error,
     isError,
     isPending: loading,
-  } = useFetch(["category"], "https://travel-rv5s.onrender.com/category");
-  if (error) {
+  } = useFetch("/category");
+  if (isError) {
     return <p>Error:{error.message}</p>;
   }
 

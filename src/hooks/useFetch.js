@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-const useFetch = (queryKey, url) => {
+const useFetch = (url, staleTimeValue = 5 * 1000) => {
   async function fetchData() {
-    const response = await fetch(url);
+    const response = await fetch(`https://travel-rv5s.onrender.com${url}`);
     if (!response.ok) {
       throw new Error("Failed to fetch", response.status);
     }
@@ -10,9 +10,10 @@ const useFetch = (queryKey, url) => {
   }
 
   const { data, isPending, isError, error } = useQuery({
-    queryKey: queryKey,
+    queryKey: [url],
     queryFn: fetchData,
-    staleTime: 5 * 1000,
+    staleTime: staleTimeValue,
+    refetchOnWindowFocus: false,
   });
 
   return { data, isPending, isError, error };

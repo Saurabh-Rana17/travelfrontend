@@ -1,28 +1,24 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-
 import ExlporeMoreTour from "./ExlporeMoreTour";
-
 import VerticalSkeleton from "../../components/Skeleton/VerticalSkeleton";
 import { userContext } from "../../store/UserProvider";
 import RecommendedPost from "./RecommendedPost";
+import useFetch from "../../hooks/useFetch";
 
 export default function Recommended() {
-  const [post, setPost] = useState([]);
-  const [loading, setLoading] = useState(false);
   const { userState: user } = useContext(userContext);
-  useEffect(() => {
-    setLoading(true);
-    async function fetchData(query) {
-      const res = await fetch(
-        `https://travel-rv5s.onrender.com/interest${query}`
-      );
-      const response = await res.json();
-      setPost(response);
-      setLoading(false);
-    }
-    fetchData(user?.email ? "/" + user?.email : "");
-  }, []);
+  const query = user?.email ? "/" + user?.email : "";
+  const {
+    data: post,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch(`/interest${query}`, 5 * 60 * 1000);
+
+  if (isError) {
+    return <p>Error:{error.message}</p>;
+  }
   return (
     <>
       <Typography
