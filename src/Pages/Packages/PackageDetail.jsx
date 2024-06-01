@@ -12,12 +12,13 @@ import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
 import { CartContext } from "../../store/StateProvider.jsx";
 import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { toast } from "react-toastify";
+import useFetch from "../../hooks/useFetch.js";
 
 export default function PackageDetail() {
   const params = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [data, setData] = useState(null);
+  // const [loading, setLoading] = useState(true);
   const [mainImg, setMainImg] = useState("");
   const [imgArr, setImgArr] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,22 +31,24 @@ export default function PackageDetail() {
     setIsPresent(res);
   }
 
+  const {
+    data,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch(`/package/${params.id}`);
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://travel-rv5s.onrender.com/package/${params.id}`
-      );
-      const result = await response.json();
-      setData(result);
-      setLoading(false);
-      setMainImg(result.images[0]);
-      const imgf = result.images;
+    if (data) {
+      setMainImg(data.images[0]);
+      const imgf = [...data.images];
       imgf.shift();
       setImgArr(imgf);
-    };
-    fetchData();
+    }
+    // };
+    // fetchData();
     checkIfPresent();
-  }, []);
+  }, [data]);
 
   const handleClick = (category) => {
     navigate("/category/" + category);
@@ -87,6 +90,15 @@ export default function PackageDetail() {
       navigate("/cart");
     }
   }
+
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
+  }
+
   return (
     <>
       {loading ? (

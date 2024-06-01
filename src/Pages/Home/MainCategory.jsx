@@ -12,7 +12,11 @@ export default function () {
     isPending: loading,
   } = useFetch("/category");
   if (isError) {
-    return <p>Error:{error.message}</p>;
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
   }
 
   return (

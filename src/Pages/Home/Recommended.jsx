@@ -17,7 +17,11 @@ export default function Recommended() {
   } = useFetch(`/interest${query}`, 5 * 60 * 1000);
 
   if (isError) {
-    return <p>Error:{error.message}</p>;
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
   }
   return (
     <>

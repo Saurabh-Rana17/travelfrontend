@@ -9,15 +9,22 @@ import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { CartContext } from "../../store/StateProvider.jsx";
 import Loader from "../../components/Skeleton/Loader.jsx";
+import useFetch from "../../hooks/useFetch.js";
 
 export default function Details() {
   const params = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { addTour, cartState } = useContext(CartContext);
   const [isPresent, setIsPresent] = useState();
+
+  const {
+    data,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch(`/tour/${params.id}`);
 
   function checkIfPresent() {
     const arr = cartState.tours;
@@ -27,15 +34,6 @@ export default function Details() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://travel-rv5s.onrender.com/tour/${params.id}`
-      );
-      const result = await response.json();
-      setData(result);
-      setLoading(false);
-    };
-    fetchData();
     checkIfPresent();
   }, []);
 
@@ -75,6 +73,14 @@ export default function Details() {
     addTour(data.id, data.title);
     toast.success("Added To Cart");
     setIsPresent(true);
+  }
+
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
   }
 
   return (

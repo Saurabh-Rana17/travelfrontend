@@ -2,21 +2,17 @@ import { Grid, Typography, createTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FeaturedPost from "../../components/Post/FeaturedPost";
 import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton";
+import useFetch from "../../hooks/useFetch";
 
 function Explore() {
-  const [post, setPost] = useState(null);
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`https://travel-rv5s.onrender.com/tour`);
-      const result = await response.json();
-      setPost(result);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  const { data: post, isError, error, isPending: loading } = useFetch("/tour");
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
+  }
 
   return (
     <>
@@ -34,9 +30,7 @@ function Explore() {
           ))}
         </Grid>
       )}
-      {/* {loading && <Loader />} */}
       {loading && <HorizontalSkeleton />}
-      {/* {loading && <VerticalSkeleton />} */}
     </>
   );
 }

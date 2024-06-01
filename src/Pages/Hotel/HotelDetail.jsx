@@ -4,55 +4,41 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Chip, CircularProgress, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useContext, useEffect, useState } from "react";
 import Loader from "../../components/Skeleton/Loader.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
-import {
-  AddShoppingCart,
-  Dataset,
-  ShoppingCartCheckout,
-} from "@mui/icons-material";
+import { AddShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { CartContext } from "../../store/StateProvider.jsx";
 import { toast } from "react-toastify";
+import useFetch from "../../hooks/useFetch.js";
 
 export default function HotelDetail() {
   const params = useParams();
   const navigate = useNavigate();
-  const [datatest, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [mainImg, setMainImg] = useState("");
   const [imgArr, setImgArr] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { addHotel, cartState } = useContext(CartContext);
   const [isPresent, setIsPresent] = useState(false);
+
+  const {
+    data,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch(`/hotel/${params.id}`);
+
   function checkIfPresent() {
     const res = cartState.hotels.some((el) => el.id === params.id);
     setIsPresent(res);
   }
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://travel-rv5s.onrender.com/hotel/${params.id}`
-      );
-      const result = await response.json();
-      setData(result);
-      setLoading(false);
-      setMainImg(result.images[0]);
-      const imgf = result.images;
-      imgf.shift();
-      setImgArr(imgf);
-    };
-    fetchData();
     checkIfPresent();
   }, []);
 
-  const handleClick = (category) => {
-    navigate("/category/" + category);
-  };
   // const handleBook = async (event) => {
   //   event.preventDefault();
   //   if (!user) {
@@ -67,7 +53,7 @@ export default function HotelDetail() {
   //         method: "POST",
   //         body: JSON.stringify({
   //           email: user.email,
-  //           hotel: datatest.id,
+  //           hotel: data.id,
   //         }),
   //         headers: {
   //           "Content-Type": "application/json",
@@ -84,10 +70,18 @@ export default function HotelDetail() {
     if (isPresent) {
       navigate("/cart");
     } else {
-      addHotel(datatest.id, datatest.name, datatest.cost);
+      addHotel(data.id, data.name, data.cost);
       toast.success("Added To Cart");
       setIsPresent(true);
     }
+  }
+
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
   }
 
   return (
@@ -100,7 +94,7 @@ export default function HotelDetail() {
         <Box>
           <Paper sx={{ border: "1px solid grey.500", p: 3 }}>
             <Typography gutterBottom component="h1" variant="h4" align="center">
-              {datatest.name}
+              {data.name}
             </Typography>
             <CardMedia
               component="img"
@@ -110,7 +104,7 @@ export default function HotelDetail() {
                 mx: "auto",
                 display: { xs: "none", sm: "flex" },
               }}
-              image={datatest.images[0]}
+              image={data.images[0]}
               alt="image"
             />
             <CardMedia
@@ -122,7 +116,7 @@ export default function HotelDetail() {
                 objectFit: "cover",
                 display: { xs: "flex", sm: "none" },
               }}
-              image={datatest.images[0]}
+              image={data.images[0]}
               alt="image"
             />
             <pre style={{ textWrap: "wrap" }}>
@@ -131,7 +125,7 @@ export default function HotelDetail() {
                 variant="h6"
                 paragraph
               >
-                📍<b>Address</b> :- {datatest.location}
+                📍<b>Address</b> :- {data.location}
               </Typography>
             </pre>
             <Typography
@@ -139,14 +133,14 @@ export default function HotelDetail() {
               variant="h6"
               paragraph
             >
-              🏙️ <b>City</b> :- {datatest.city}
+              🏙️ <b>City</b> :- {data.city}
             </Typography>
             <Typography
               sx={{ p: { xs: 0, sm: 2 }, textAlign: "justify" }}
               variant="h6"
               paragraph
             >
-              💵 <b>Price</b> :- ₹{datatest.cost}
+              💵 <b>Price</b> :- ₹{data.cost}
             </Typography>
             <Typography
               sx={{
@@ -188,7 +182,7 @@ export default function HotelDetail() {
                 cols={3}
                 rowHeight={300}
               >
-                {datatest.images.map((item) => (
+                {data.images.map((item) => (
                   <ImageListItem key={item}>
                     <img
                       // srcSet={`${item.img}?w=900&h=900&fit=crop&auto=format&dpr=2 2x`}
@@ -218,7 +212,7 @@ export default function HotelDetail() {
                 cols={1}
                 rowHeight={300}
               >
-                {datatest.images.map((item) => (
+                {data.images.map((item) => (
                   <ImageListItem key={item}>
                     <img
                       // srcSet={`${item.img}?w=900&h=900&fit=crop&auto=format&dpr=2 2x`}
@@ -250,7 +244,7 @@ export default function HotelDetail() {
               textAlign={"center"}
             >
               <iframe
-                src={datatest.mapLocation}
+                src={data.mapLocation}
                 width={"800"}
                 height={"500"}
                 style={{ border: 0 }}
@@ -267,7 +261,7 @@ export default function HotelDetail() {
               textAlign={"center"}
             >
               <iframe
-                src={datatest.mapLocation}
+                src={data.mapLocation}
                 width={"280"}
                 height={"400"}
                 style={{ border: 0 }}

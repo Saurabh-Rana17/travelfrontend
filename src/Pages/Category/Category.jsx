@@ -7,23 +7,26 @@ import FeaturedPost from "../../components/Post/FeaturedPost.jsx";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton.jsx";
+import useFetch from "../../hooks/useFetch.js";
 
 export default function Category() {
   const category = useParams().category;
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://travel-rv5s.onrender.com/category/${category}`
-      );
-      const result = await response.json();
-      setData(result);
-      setLoading(false);
-    };
-    fetchData();
-  }, [category]);
+  const {
+    data,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch(`/category/${category}`);
+
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
+  }
+
   const defaultTheme = createTheme();
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -42,6 +45,7 @@ export default function Category() {
       >
         Here are some of the Tours under {category.toLocaleUpperCase()} category
       </Typography>
+
       {!loading && (
         <Grid container spacing={4}>
           {data.map((d) => (
@@ -50,7 +54,6 @@ export default function Category() {
         </Grid>
       )}
       {loading && <HorizontalSkeleton />}
-      {/* {loading && <VerticalSkeleton />} */}
     </ThemeProvider>
   );
 }

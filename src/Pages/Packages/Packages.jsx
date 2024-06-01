@@ -2,20 +2,23 @@ import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FeaturedPost from "../../components/Post/FeaturedPost";
 import HorizontalSkeleton from "../../components/Skeleton/HorizontalSkeleton";
+import useFetch from "../../hooks/useFetch";
 
 function Packages() {
-  const [packages, setPackages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    async function fetchData() {
-      const res = await fetch("https://travel-rv5s.onrender.com/package");
-      const response = await res.json();
-      setLoading(false);
-      setPackages(response);
-    }
-    fetchData();
-  }, []);
+  const {
+    data: packages,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch("/package");
+
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
+  }
   return (
     <>
       <Typography
@@ -32,9 +35,7 @@ function Packages() {
           ))}
         </Grid>
       )}
-      {/* {loading && <Loader />} */}
       {loading && <HorizontalSkeleton />}
-      {/* {loading && <VerticalSkeleton />} */}
     </>
   );
 }

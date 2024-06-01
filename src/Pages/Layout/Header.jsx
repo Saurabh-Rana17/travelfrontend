@@ -10,7 +10,7 @@ import { useNavigate, NavLink, Link as RouterLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import { blue, grey, red } from "@mui/material/colors";
 import { toast } from "react-toastify";
-import { LogoutOutlined } from "@mui/icons-material";
+import { Close as CloseIcon, LogoutOutlined } from "@mui/icons-material";
 import { useContext } from "react";
 import { CartContext } from "../../store/StateProvider";
 import { userContext } from "../../store/UserProvider";
@@ -101,24 +101,36 @@ function Header() {
           }}
         >
           {active ? (
-            <Input
-              value={search}
-              align="center"
-              autoFocus
-              sx={{
-                width: {
-                  xs: "45vw",
-                  sm: "auto",
-                },
-              }}
-              size="small"
-              onBlur={() => {
-                if (!search) {
-                  setActive(false);
-                }
-              }}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <>
+              <Tooltip title="Close Input ">
+                <IconButton
+                  onClick={() => {
+                    setActive(false);
+                    setSearch("");
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Tooltip>
+              <Input
+                value={search}
+                align="center"
+                autoFocus
+                sx={{
+                  width: {
+                    xs: "40vw",
+                    sm: "auto",
+                  },
+                }}
+                size="small"
+                onBlur={() => {
+                  if (!search) {
+                    setActive(false);
+                  }
+                }}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </>
           ) : (
             ""
           )}
@@ -130,7 +142,7 @@ function Header() {
           <Box
             sx={{
               display: {
-                xs: active ? "none" : "inline-block",
+                xs: "inline-block",
                 sm: "inline-block",
               },
             }}
@@ -144,6 +156,10 @@ function Header() {
             size="small"
             color="error"
             sx={{
+              display: {
+                xs: active ? "none" : "inline-block",
+                sm: "block",
+              },
               "&:hover": {
                 backgroundColor: red[700],
                 color: "white",

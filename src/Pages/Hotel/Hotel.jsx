@@ -12,6 +12,7 @@ function Hotel() {
   const [city, setCity] = useState("");
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
+
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
