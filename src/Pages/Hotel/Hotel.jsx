@@ -27,7 +27,7 @@ const fetchData = async () => {
 };
 
 function Hotel() {
-  const [searchLoading, setLoading] = useState();
+  const [searchLoading, setLoading] = useState(false);
   const [searchData, setData] = useState([]);
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
@@ -85,6 +85,7 @@ function Hotel() {
     setLoading(false);
     setData(response);
   }
+
   return (
     <>
       <Box sx={{ margin: "1rem", textAlign: "center" }}>

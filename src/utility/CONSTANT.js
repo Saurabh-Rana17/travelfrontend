@@ -7,3 +7,5 @@ export const MainFeaturesPostData = {
   description:
     "The Char Dham Yatra is a revered pilgrimage circuit in the Indian state of Uttarakhand, comprising four sacred sites: Yamunotri, Gangotri, Kedarnath, and Badrinath. These destinations hold deep religious significance for Hindus, with each site dedicated to a different deity.\n\nPilgrims undertake this journey seeking spiritual purification and divine blessings. The yatra typically begins with a visit to Yamunotri and Gangotri, the sources of the Yamuna and Ganga rivers, respectively.\n\nKedarnath, nestled in the Himalayas, is home to an ancient Shiva temple accessible via a trekking route. Finally, the pilgrimage concludes at Badrinath, where devotees pay homage to Lord Vishnu.\n\nThe Char Dham Yatra offers a profound spiritual experience amidst awe-inspiring natural beauty, attracting thousands of devotees and tourists annually.",
 };
+
+export const BaseUrl = "https://travel-rv5s.onrender.com";

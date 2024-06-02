@@ -30,6 +30,8 @@ import Explore from "./Pages/Explore/Explore.jsx";
 import Details from "./Pages/Explore/Details.jsx";
 import Cart from "./Pages/Cart/Cart.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Homestay from "./Pages/Homestay/Homestay.jsx";
+import HomestayDetail from "./Pages/Homestay/HomestayDetail.jsx";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -55,6 +57,8 @@ export default function App() {
         <Route path="/success" element={<BookingSuccess />} />
         <Route path="/inquirysuccess" element={<InquirySuccess />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/homestay" element={<Homestay />} />
+        <Route path="/homestay/:id" element={<HomestayDetail />} />
       </Route>
     )
   );

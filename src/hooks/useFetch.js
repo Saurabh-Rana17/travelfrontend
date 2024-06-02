@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import { BaseUrl } from "../utility/CONSTANT";
 
 const useFetch = (url, staleTimeValue = 20 * 1000) => {
   async function fetchData() {
-    const response = await fetch(`https://travel-rv5s.onrender.com${url}`);
+    const response = await fetch(BaseUrl + url);
     if (!response.ok) {
       throw new Error(
         `Failed to fetch ${response.status}  ${response.statusText}`

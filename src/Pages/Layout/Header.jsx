@@ -24,6 +24,7 @@ function Header() {
   const sections = [
     { title: "Home", url: "/" },
     { title: "Hotel", url: "/hotel" },
+    { title: "Homestay", url: "/homestay" },
     { title: "Cab", url: "/cab" },
     { title: "Explore", url: "/explore" },
     { title: "Packages", url: "/packages" },

@@ -8,12 +8,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { userContext } from "../../store/UserProvider";
 import AuthModal from "../../components/Modal/AuthModal";
+import { useMutation } from "@tanstack/react-query";
+import { postData } from "../../utility/postData";
 
 export default function Inquiry() {
   const navigate = useNavigate();
@@ -21,8 +23,14 @@ export default function Inquiry() {
   const [query, setQuery] = useState("");
   const [queryDetail, setQueryDetail] = useState("");
   const [empty, setEmpty] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const mutation = useMutation({
+    mutationFn: postData,
+    onSuccess: () => {
+      toast.success("Sent Successfully");
+      navigate("/inquirysuccess");
+    },
+  });
 
   async function handleClick() {
     setEmpty(false);
@@ -31,22 +39,24 @@ export default function Inquiry() {
     } else if (!user) {
       setShowModal(true);
     } else {
-      setIsSubmitting(true);
-      const response = await fetch("https://travel-rv5s.onrender.com/inquiry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-          summary: query,
-          description: queryDetail,
-        }),
-      });
-      const res = await response.json();
-      setIsSubmitting(false);
-      toast.success("Sent Successfully");
-      navigate("/inquirysuccess");
+      // const response = await fetch("https://travel-rv5s.onrender.com/inquiry", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // body: JSON.stringify({
+      //   email: user.email,
+      //   summary: query,
+      //   description: queryDetail,
+      // }),
+      // });
+      // const res = await response.json();
+      const data = {
+        email: user.email,
+        summary: query,
+        description: queryDetail,
+      };
+      mutation.mutate({ url: "/inquiry", data: data });
     }
   }
 
@@ -70,6 +80,7 @@ export default function Inquiry() {
   const textStyles = {
     padding: "0 10px", // Adjust as needed
   };
+
   return (
     <>
       <div style={{ margin: "auto" }}>
@@ -135,14 +146,19 @@ export default function Inquiry() {
               }}
             >
               <Button
-                disabled={isSubmitting}
+                disabled={mutation.isPending}
                 sx={{ width: "6rem" }}
                 onClick={handleClick}
                 variant="contained"
               >
-                {isSubmitting ? "Sending" : "Send"}
+                {mutation.isPending ? "Sending" : "Send"}
               </Button>
             </Box>
+            {mutation.isError && (
+              <Typography color={"red"} marginTop={"2rem"} textAlign={"center"}>
+                Error : {mutation.error.message}
+              </Typography>
+            )}
 
             <div style={hrStyles}>
               <div style={hrLineStyles}></div>
