@@ -13,41 +13,22 @@ import { CartContext } from "../../store/StateProvider.jsx";
 import { toast } from "react-toastify";
 import useFetch from "../../hooks/useFetch.js";
 
-const data = {
-  id: "6636375bfd922161c89500ab",
-  name: "Hotel Alaknanda",
-  location:
-    "274, 293, Kaulagarh Rd, Rajender Nagar, Dehradun, Uttarakhand 248003",
-  mapLocation:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.4425311881114!2d78.0178559793457!3d30.338370799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929ff4740401f%3A0x39e76b0cbd98d314!2sHotel%20Alaknanda!5e0!3m2!1sen!2sin!4v1714828668299!5m2!1sen!2sin",
-  city: "Dehradun",
-  images: [
-    "https://r1imghtlak.mmtcdn.com/363fe6e4dfeb11ec93010a58a9feac02.jpg",
-    "https://r1imghtlak.ibcdn.com/52b5fd2a046d11ee934f0a58a9feac02.jpg",
-    "https://r1imghtlak.ibcdn.com/78b2b428046d11eea1540a58a9feac02.jpg",
-    "https://r1imghtlak.ibcdn.com/5fe55b52046e11eea15e0a58a9feac02.jpg",
-    "https://r2imghtlak.ibcdn.com/r2-mmt-htl-image/htl-imgs/202208171217535059-4f389f6c1df611eda38c0a58a9feac02.jpg",
-    "https://r1imghtlak.ibcdn.com/d673cdf8db7911edb2dd0a58a9feac02.jpg",
-  ],
-  cost: 1000,
-};
-
 export default function HomestayDetail() {
   const params = useParams();
+
   const navigate = useNavigate();
-  const { addHotel, cartState } = useContext(CartContext);
+  const { addHomestay, cartState } = useContext(CartContext);
   const [isPresent, setIsPresent] = useState(false);
 
-  // const {
-  //   data,
-  //   error,
-  //   isError,
-  //   isPending: loading,
-  // } = useFetch(`/hotel/${params.id}`);
-  const loading = false;
+  const {
+    data,
+    error,
+    isError,
+    isPending: loading,
+  } = useFetch(`/hotel/${params.id}`);
 
   function checkIfPresent() {
-    const res = cartState.hotels.some((el) => el.id === params.id);
+    const res = cartState.homestay.some((el) => el.id === params.id);
     setIsPresent(res);
   }
   useEffect(() => {
@@ -85,19 +66,19 @@ export default function HomestayDetail() {
     if (isPresent) {
       navigate("/cart");
     } else {
-      addHotel(data.id, data.name, data.cost);
+      addHomestay(data.id, data.name, data.cost);
       toast.success("Added To Cart");
       setIsPresent(true);
     }
   }
 
-  // if (isError) {
-  //   return (
-  //     <Typography marginTop={"2rem"} textAlign={"center"}>
-  //       Error : {error.message}
-  //     </Typography>
-  //   );
-  // }
+  if (isError) {
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {error.message}
+      </Typography>
+    );
+  }
 
   return (
     <>

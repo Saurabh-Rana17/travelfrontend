@@ -5,6 +5,7 @@ const defaultState = {
   tours: [],
   packages: [],
   hotels: [],
+  homestay: [],
   total: 0,
 };
 
@@ -22,6 +23,8 @@ export const CartContext = createContext({
   addHotel: () => {},
   deleteHotel: () => {},
   deleteCart: () => {},
+  addHomestay: () => {},
+  deleteHomestay: () => {},
 });
 
 function cartReducer(state, action) {
@@ -110,6 +113,26 @@ function cartReducer(state, action) {
       return defaultState;
     }
 
+    case "addHomestay": {
+      const { id, name, price } = action.payload;
+      const total = state.total + 1;
+      const newHomestay = [...state.homestay, { id, name, price }];
+      const newState = {
+        ...state,
+        total,
+        homestay: newHomestay,
+      };
+      return newState;
+    }
+
+    case "deleteHomestay": {
+      const { id } = action.payload;
+      const total = state.total - 1;
+      const newHomestay = state.homestay.filter((el) => el.id != id);
+      const newState = { ...state, total, homestay: newHomestay };
+      return newState;
+    }
+
     default:
       return state;
   }
@@ -174,6 +197,24 @@ function StateProvider({ children }) {
     });
   }
 
+  function addHomestay(id, name, price) {
+    dispatch({
+      type: "addHomestay",
+      payload: {
+        id,
+        name,
+        price,
+      },
+    });
+  }
+
+  function deleteHomestay(id) {
+    dispatch({
+      type: "deleteHomestay",
+      payload: { id },
+    });
+  }
+
   const value = {
     cartState,
     addTour,
@@ -183,6 +224,8 @@ function StateProvider({ children }) {
     addHotel,
     deleteHotel,
     deleteCart,
+    addHomestay,
+    deleteHomestay,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import { post } from "../../utility/CONSTANT";
+import { postSection } from "../../utility/CONSTANT";
 
 function Main() {
   return (
@@ -21,7 +21,7 @@ function Main() {
         Explore the Unexplored
       </Typography>
       <Divider />
-      <Box className="markdown">{post}</Box>
+      <Box className="markdown">{postSection}</Box>
     </Grid>
   );
 }

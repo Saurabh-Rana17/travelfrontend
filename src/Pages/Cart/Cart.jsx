@@ -27,7 +27,7 @@ export default function Cart() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const { userState: user } = useContext(userContext);
-  const { cartState, deleteTour, deletePackage, deleteHotel } =
+  const { cartState, deleteTour, deletePackage, deleteHotel, deleteHomestay } =
     useContext(CartContext);
 
   const handleBook = async (event) => {
@@ -174,6 +174,79 @@ export default function Cart() {
             </TableContainer>
           </Box>
         )}
+
+        {/* will execute if homestay array exist */}
+
+        {cartState.homestay.length > 0 && (
+          <Box>
+            <Typography marginY={"1rem"} marginBottom={"0.5rem"} variant="h5">
+              {" "}
+              🏡 Homestay
+            </Typography>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Sr.no</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {cartState.homestay.map((row, idx) => (
+                    <TableRow
+                      key={row.id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {idx + 1}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row">
+                        <Link
+                          sx={{ textDecoration: "none" }}
+                          component={RouterLink}
+                          to={`/homestay/${row.id}`}
+                        >
+                          {row.name}
+                        </Link>
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.price}
+                      </TableCell>
+                      <TableCell component="th" scope="row" align="right">
+                        <Button
+                          sx={{ padding: 0 }}
+                          onClick={() => {
+                            deleteHomestay(row.id);
+                            toast.error("Homestay Removed");
+                          }}
+                          startIcon={<Delete />}
+                          color="error"
+                        >
+                          <Box
+                            sx={{
+                              display: {
+                                xs: "none",
+                                sm: "block",
+                              },
+                            }}
+                          >
+                            Remove
+                          </Box>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        )}
+
         {/* will execute if tours array exist */}
 
         {cartState.tours.length > 0 && (
@@ -292,7 +365,7 @@ export default function Cart() {
           </Box>
         )}
         <Divider />
-        {/* will execute when any of hotel, package or tour is empty */}
+        {/* will execute when any of hotel,homestay, package or tour is empty */}
         <Box marginY={"1rem"}>
           {cartState.hotels.length === 0 && (
             <Box paddingX={"1rem"}>
@@ -303,12 +376,17 @@ export default function Cart() {
               </Link>
             </Box>
           )}
+          {cartState.homestay.length === 0 && (
+            <Box paddingX={"1rem"}>
+              No Homestay added ,{" "}
+              <Link component={RouterLink} to={"/homestay"}>
+                {" "}
+                Add Homestay
+              </Link>
+            </Box>
+          )}
           {cartState.tours.length === 0 && (
             <Box>
-              {/* <Typography marginY={"1rem"} marginBottom={"0.5rem"} variant="h5">
-                {" "}
-                🏞️ Tours
-              </Typography> */}
               <Box paddingX={"1rem"}>
                 No Tour Added ,{" "}
                 <Link component={RouterLink} to={"/explore"}>
@@ -320,10 +398,6 @@ export default function Cart() {
           )}
           {cartState.packages.length === 0 && (
             <Box>
-              {/* <Typography marginY={"1rem"} marginBottom={"0.5rem"} variant="h5">
-                {" "}
-                🧳 Tour Packages
-              </Typography> */}
               <Box paddingX={"1rem"}>
                 No Tour Pacakge Added ,{" "}
                 <Link component={RouterLink} to={"/packages"}>
@@ -338,7 +412,7 @@ export default function Cart() {
         <Box width={"fit-content"} sx={{ margin: "auto" }}>
           <Button
             onClick={handleBook}
-            disabled={cartState.total === 0}
+            disabled={cartState.total <= 0}
             variant="contained"
           >
             Book Now
