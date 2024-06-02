@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  Divider,
-  OutlinedInput,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -30,6 +21,9 @@ export default function Inquiry() {
       toast.success("Sent Successfully");
       navigate("/inquirysuccess");
     },
+    onError: () => {
+      toast.error("Failed to Submit");
+    },
   });
 
   async function handleClick() {
@@ -40,7 +34,7 @@ export default function Inquiry() {
       setShowModal(true);
     } else {
       // const response = await fetch("https://travel-rv5s.onrender.com/inquiry", {
-      //   method: "POST",
+      //   method: "",
       //   headers: {
       //     "Content-Type": "application/json",
       //   },

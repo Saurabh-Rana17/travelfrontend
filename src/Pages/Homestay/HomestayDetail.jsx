@@ -65,7 +65,7 @@ export default function HomestayDetail() {
   //     const response = await fetch(
   //       "https://travel-rv5s.onrender.com/hotel/book",
   //       {
-  //         method: "POST",
+  //         method: "",
   //         body: JSON.stringify({
   //           email: user.email,
   //           hotel: data.id,

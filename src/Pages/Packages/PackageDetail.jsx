@@ -64,7 +64,7 @@ export default function PackageDetail() {
   //     const response = await fetch(
   //       "https://travel-rv5s.onrender.com/package/book",
   //       {
-  //         method: "POST",
+  //         method: "",
   //         headers: {
   //           "Content-Type": "application/json",
   //         },

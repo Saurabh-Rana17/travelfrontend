@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userContext } from "../../store/UserProvider";
 import AuthModal from "../../components/Modal/AuthModal";
+import { useMutation } from "@tanstack/react-query";
+import { postData } from "../../utility/postData";
 
 export default function Cab() {
   const navigate = useNavigate();
@@ -13,15 +15,28 @@ export default function Cab() {
   const [noOfPeople, setNoOfPeople] = useState("");
   const [date, setDate] = useState("");
   const [empty, setEmpty] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const {
+    mutate,
+    isPending: isSubmitting,
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: postData,
+    onSuccess: () => {
+      toast.success("Submitted Successfully");
+      navigate("/inquirysuccess");
+    },
+    onError: () => {
+      toast.error("Failed to Send Data");
+    },
+  });
+
   useEffect(() => {
     let currentDate = new Date();
-
     currentDate.setDate(currentDate.getDate() + 1);
-
     const tomorrowDate = currentDate.toJSON().slice(0, 10);
-
     setDate(tomorrowDate);
   }, []);
   async function handleClick() {
@@ -31,25 +46,28 @@ export default function Cab() {
     } else if (!user) {
       setShowModal(true);
     } else {
-      setIsSubmitting(true);
-      const response = await fetch("https://travel-rv5s.onrender.com/cab", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-          pickUp: pickUp,
-          dropUp: dropUp,
-          date: date,
-          noOfPeople: noOfPeople,
-        }),
-      });
-      const res = await response.json();
+      // const response = await fetch("https://travel-rv5s.onrender.com/cab", {
+      //   method: "",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     email: user.email,
+      //     pickUp: pickUp,
+      //     dropUp: dropUp,
+      //     date: date,
+      //     noOfPeople: noOfPeople,
+      //   }),
+      // });
+      const data = {
+        email: user.email,
+        pickUp: pickUp,
+        dropUp: dropUp,
+        date: date,
+        noOfPeople: noOfPeople,
+      };
 
-      setIsSubmitting(false);
-      toast.success("Submitted Successfully");
-      navigate("/inquirysuccess");
+      mutate({ url: "/cab", data });
     }
   }
 
@@ -152,6 +170,9 @@ export default function Cab() {
                 {isSubmitting ? "Sending" : "Send"}
               </Button>
             </Box>
+            {isError && (
+              <Typography color={"red"}> Error : {error.message} </Typography>
+            )}
           </Paper>
         </Box>
       </div>

@@ -52,7 +52,7 @@ export default function Details() {
   //     const response = await fetch(
   //       "https://travel-rv5s.onrender.com/tour/book",
   //       {
-  //         method: "POST",
+  //         method: "",
   //         headers: {
   //           "Content-Type": "application/json",
   //         },
