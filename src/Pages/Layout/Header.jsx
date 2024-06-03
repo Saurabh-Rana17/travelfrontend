@@ -15,12 +15,15 @@ import { useContext } from "react";
 import { CartContext } from "../../store/StateProvider";
 import { userContext } from "../../store/UserProvider";
 import CartBadge from "./CartBadge";
+import { useState } from "react";
 
 function Header() {
   const { userState, setUserState } = useContext(userContext);
   const title = "Travels";
   const { deleteCart } = useContext(CartContext);
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const sections = [
     { title: "Home", url: "/" },
     { title: "Hotel", url: "/hotel" },
@@ -28,11 +31,16 @@ function Header() {
     { title: "Cab", url: "/cab" },
     { title: "Explore", url: "/explore" },
     { title: "Packages", url: "/packages" },
-    {
-      title: "Inquiry",
-      url: "/contact",
-    },
+    { title: "Inquiry", url: "/contact" },
   ];
+  React.useEffect(() => {
+    if (userState?.email === "saurabhrana200317@gmail.com") {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [userState]);
+  console.log(userState?.email === "saurabhrana200317@gmail.com");
 
   const [active, setActive] = React.useState(false);
   const [search, setSearch] = React.useState("");
@@ -237,6 +245,33 @@ function Header() {
             {section.title}
           </Link>
         ))}
+        {/* admin url */}
+        {isAdmin && (
+          <Link
+            color="inherit"
+            component={NavLink}
+            style={({ isActive }) => {
+              return {
+                fontWeight: isActive ? "bold" : "",
+                backgroundColor: isActive ? grey[300] : "",
+                borderRadius: "7px",
+                // color: isActive ? "white" : "",
+              };
+            }}
+            noWrap
+            variant="body2"
+            to={"/admin"}
+            sx={{
+              p: 1,
+              flexShrink: 0,
+              ":hover": {
+                backgroundColor: grey[200],
+              },
+            }}
+          >
+            Admin
+          </Link>
+        )}
       </Toolbar>
       <Divider />
     </React.Fragment>

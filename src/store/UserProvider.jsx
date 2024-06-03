@@ -5,6 +5,7 @@ export const userContext = createContext({
   userState: {},
   setUserState: () => {},
 });
+
 function userReducer(state, action) {
   const { type } = action;
 
@@ -38,6 +39,5 @@ export default function UserProvider({ children }) {
   }
 
   const value = { userState, setUserState };
-
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 }

@@ -32,6 +32,11 @@ import Cart from "./Pages/Cart/Cart.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Homestay from "./Pages/Homestay/Homestay.jsx";
 import HomestayDetail from "./Pages/Homestay/HomestayDetail.jsx";
+import AdminLayout from "./Pages/Admin/AdminLayout.jsx";
+import ManageHotel from "./Pages/Admin/Hotel/ManageHotel.jsx";
+import ManageHomestay from "./Pages/Admin/Homestay/ManageHomestay.jsx";
+import ManageTour from "./Pages/Admin/Tour/ManageTour.jsx";
+import ManageTourPackage from "./Pages/Admin/TourPackage/ManageTourPackage.jsx";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -59,6 +64,12 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/homestay" element={<Homestay />} />
         <Route path="/homestay/:id" element={<HomestayDetail />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="managehotel" element={<ManageHotel />} />
+          <Route path="managehomestay" element={<ManageHomestay />} />
+          <Route path="managetour" element={<ManageTour />} />
+          <Route path="managetourpackage" element={<ManageTourPackage />} />
+        </Route>
       </Route>
     )
   );

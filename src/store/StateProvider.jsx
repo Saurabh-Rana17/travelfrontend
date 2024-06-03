@@ -128,7 +128,7 @@ function cartReducer(state, action) {
     case "deleteHomestay": {
       const { id } = action.payload;
       const total = state.total - 1;
-      const newHomestay = state.homestay.filter((el) => el.id != id);
+      const newHomestay = state.homestay.filter((el) => el.id !== id);
       const newState = { ...state, total, homestay: newHomestay };
       return newState;
     }
