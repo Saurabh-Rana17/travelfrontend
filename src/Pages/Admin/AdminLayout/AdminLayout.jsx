@@ -2,8 +2,8 @@ import { Divider, Link, Toolbar } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { userContext } from "../../store/UserProvider";
-import { checkAdmin } from "../../utility/checkAdmin";
+import { userContext } from "../../../store/UserProvider";
+import { checkAdmin } from "../../../utility/checkAdmin";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -35,9 +35,9 @@ export default function AdminLayout() {
             style={({ isActive }) => {
               return {
                 fontWeight: isActive ? "bold" : "",
-                backgroundColor: isActive ? grey[500] : "",
+                backgroundColor: isActive ? grey[700] : "",
                 borderRadius: "7px",
-                // color: isActive ? "white" : "",
+                color: isActive ? "white" : "",
               };
             }}
             noWrap
@@ -48,7 +48,7 @@ export default function AdminLayout() {
               p: 1,
               mr: "2rem",
               flexShrink: 0,
-              backgroundColor: grey[100],
+              backgroundColor: grey[50],
               ":hover": {
                 backgroundColor: grey[500],
               },

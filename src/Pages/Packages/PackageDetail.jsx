@@ -42,7 +42,6 @@ export default function PackageDetail() {
     if (data) {
       setMainImg(data.images[0]);
       const imgf = [...data.images];
-      imgf.shift();
       setImgArr(imgf);
     }
 

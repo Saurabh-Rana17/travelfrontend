@@ -40,7 +40,6 @@ function Header() {
       setIsAdmin(false);
     }
   }, [userState]);
-  console.log(userState?.email === "saurabhrana200317@gmail.com");
 
   const [active, setActive] = React.useState(false);
   const [search, setSearch] = React.useState("");
