@@ -49,6 +49,10 @@ import AddTour from "./Pages/Admin/Tour/AddTour.jsx";
 import UpdateTour from "./Pages/Admin/Tour/UpdateTour.jsx";
 import UpdateTourForm from "./Pages/Admin/Tour/UpdateTourForm.jsx";
 import DeleteTour from "./Pages/Admin/Tour/DeleteTour.jsx";
+import AddTourPackage from "./Pages/Admin/TourPackage/AddTourPackage.jsx";
+import UpdateTourPackage from "./Pages/Admin/TourPackage/UpdateTourPackage.jsx";
+import UpdateTourPackageForm from "./Pages/Admin/TourPackage/UpdateTourPackageForm.jsx";
+import DeleteTourPackage from "./Pages/Admin/TourPackage/DeleteTourPackage.jsx";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -95,7 +99,12 @@ export default function App() {
             <Route path="update/:id" element={<UpdateTourForm />} />
             <Route path="delete" element={<DeleteTour />} />
           </Route>
-          <Route path="managetourpackage" element={<ManageTourPackage />} />
+          <Route path="managetourpackage" element={<ManageTourPackage />}>
+            <Route path="add" element={<AddTourPackage />} />
+            <Route path="update" element={<UpdateTourPackage />} />
+            <Route path="update/:id" element={<UpdateTourPackageForm />} />
+            <Route path="delete" element={<DeleteTourPackage />} />
+          </Route>
         </Route>
       </Route>
     )
