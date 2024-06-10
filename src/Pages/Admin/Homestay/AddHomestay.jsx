@@ -1,77 +1,51 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
 import MapViewer from "../../../components/Admin/MapViewer";
-import { useParams } from "react-router-dom";
-import useFetch from "../../../hooks/useFetch";
-import Loader from "../../../components/Skeleton/Loader";
 
-export default function UpdateHotelForm() {
-  const params = useParams();
-  const {
-    data,
-    error,
-    isError,
-    isPending: loading,
-  } = useFetch(`/hotel/${params.id}`);
+export default function AddHomestay() {
   const [mainImg, setMainimg] = useState([]);
   const [otherImg, setOtherImg] = useState([]);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [cost, setCost] = useState("");
   const [city, setCity] = useState("");
-  const [localError, setLocalError] = useState("");
+  const [error, setError] = useState("");
   const [maplocation, setMapLocation] = useState("");
-
-  useEffect(() => {
-    if (data) {
-      setName(data.name);
-      setLocation(data.location);
-      setCost(data.cost);
-      setCity(data.city);
-      setMapLocation(data.mapLocation);
-      setMainimg([data.images[0]]);
-      setOtherImg(data.images.slice(1));
-    }
-  }, [data]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    setLocalError("");
+    setError("");
     const images = [...mainImg, ...otherImg];
     if (images.length < 1) {
-      setLocalError("Please Upload atleast 1 image");
+      setError("Please Upload atleast 1 image");
       return;
     }
     if (maplocation.includes("src")) {
-      setLocalError("incorrect map");
+      setError("incorrect map");
       return;
     }
     if (!maplocation.includes("embed")) {
-      setLocalError("incorrect map");
+      setError("incorrect map");
       return;
     }
     if (images.length > 9) {
-      setLocalError(
+      setError(
         `Maximum limit is 9, you have selected ${
           images.length
         } images, Please remove ${images.length - 9} image`
       );
       return;
     }
-    const dataObj = {
+    const data = {
       name: name,
       images: [...mainImg, ...otherImg],
       location: location,
       mapLocation: maplocation,
       cost: cost,
       city: city,
-      id: params.id,
     };
-    console.log(dataObj);
-  }
-  if (loading) {
-    return <Loader />;
+    console.log(data);
   }
   return (
     <Box
@@ -108,7 +82,7 @@ export default function UpdateHotelForm() {
           gutterBottom
           variant="h5"
         >
-          Update Hotel
+          Add new Homestay
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
@@ -123,7 +97,7 @@ export default function UpdateHotelForm() {
           sx={{ marginBottom: "1.5rem" }}
           fullWidth
           required
-          label="Hotel Name"
+          label="Homestay Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -170,11 +144,7 @@ export default function UpdateHotelForm() {
           maxFiles={8}
         />
 
-        <MapViewer
-          type="update"
-          location={maplocation}
-          setLocation={setMapLocation}
-        />
+        <MapViewer location={maplocation} setLocation={setMapLocation} />
 
         <Box
           sx={{
@@ -191,10 +161,10 @@ export default function UpdateHotelForm() {
             Upload
           </Button>
         </Box>
-        {localError && (
+        {error && (
           <>
             <br />
-            <p style={{ color: "red" }}>{localError}</p>
+            <p style={{ color: "red" }}>{error}</p>
           </>
         )}
       </Paper>

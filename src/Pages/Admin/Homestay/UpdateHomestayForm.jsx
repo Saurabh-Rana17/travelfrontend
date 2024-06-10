@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../components/Skeleton/Loader";
 
-export default function UpdateHotelForm() {
+export default function UpdateHomestayForm() {
   const params = useParams();
   const {
     data,
@@ -68,7 +68,9 @@ export default function UpdateHotelForm() {
       city: city,
       id: params.id,
     };
-    console.log(dataObj);
+  }
+  if (isError) {
+    return <p>Error:{error}</p>;
   }
   if (loading) {
     return <Loader />;
@@ -108,7 +110,7 @@ export default function UpdateHotelForm() {
           gutterBottom
           variant="h5"
         >
-          Update Hotel
+          Edit Homestay
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
@@ -123,7 +125,7 @@ export default function UpdateHotelForm() {
           sx={{ marginBottom: "1.5rem" }}
           fullWidth
           required
-          label="Hotel Name"
+          label="Homestay Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />

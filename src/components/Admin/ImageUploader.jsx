@@ -121,8 +121,6 @@ function ImageUploader({ maxFiles, uploadedImages, setUploadedImages }) {
     </Card>
   ));
 
-  console.log(uploadedImages);
-
   return (
     <section style={{ marginBottom: "0.5rem" }} className="container">
       {isDisabled && (
