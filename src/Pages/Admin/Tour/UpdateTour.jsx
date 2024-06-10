@@ -1,41 +1,11 @@
-import { Grid, Typography } from "@mui/material";
-import React from "react";
-
-import { useQuery } from "@tanstack/react-query";
+import { Grid, Typography, createTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import FeaturedPost from "../../../components/Post/FeaturedPost";
 import HorizontalSkeleton from "../../../components/Skeleton/HorizontalSkeleton";
-import HotelPost from "../../Hotel/HotelPost";
-import HomestayPost from "../../Homestay/HomestayPost";
+import useFetch from "../../../hooks/useFetch";
 
-const fetchData = async () => {
-  const response = await fetch(
-    `https://travel-rv5s.onrender.com/hotel/filter`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cost: "0,100000000",
-      }),
-    }
-  );
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch ${response.status}  ${response.statusText}`
-    );
-  }
-  return response.json();
-};
-
-export default function UpdateTour() {
-  // const loading = false;
-  const {
-    data: post,
-    isError,
-    error,
-    isPending: loading,
-  } = useQuery({ queryKey: ["/homestay"], queryFn: fetchData });
-
+function UpdateTour() {
+  const { data: post, isError, error, isPending: loading } = useFetch("/tour");
   if (isError) {
     return (
       <Typography marginTop={"2rem"} textAlign={"center"}>
@@ -51,12 +21,12 @@ export default function UpdateTour() {
         component={"h1"}
         variant="h4"
       >
-        Select a Homestay to update
+        Select a Tour to Update
       </Typography>
       {!loading && (
         <Grid container spacing={4}>
           {post.map((post) => (
-            <HotelPost key={post.id} post={post} type={"update"} />
+            <FeaturedPost type="update" key={post.id} post={post} />
           ))}
         </Grid>
       )}
@@ -64,3 +34,5 @@ export default function UpdateTour() {
     </>
   );
 }
+
+export default UpdateTour;

@@ -1,81 +1,94 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Chip,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
-import MapViewer from "../../../components/Admin/MapViewer";
-import { useParams } from "react-router-dom";
+import { Category } from "@mui/icons-material";
 import useFetch from "../../../hooks/useFetch";
+import { useParams } from "react-router-dom";
 import Loader from "../../../components/Skeleton/Loader";
+
+// {
+//   "_id": {
+//     "$oid": "6628ff37cf6d6408265228e1"
+//   },
+//   "title": "Nainital ",
+//   "description": "Nainital, often referred to as the 'Lake District of India,' is a charming hill station nestled in the Kumaon foothills of the Himalayas in the state of Uttarakhand. Surrounded by lush greenery and dotted with picturesque lakes, Nainital is a paradise for nature lovers and adventure enthusiasts alike.\n\nThe town derives its name from the serene Naini Lake, which is the centerpiece of the region. Legend has it that the lake is one of the 64 Shakti Peeths, where parts of the charred body of Goddess Sati fell on Earth. Today, Naini Lake offers boating opportunities, allowing visitors to admire the surrounding hills while peacefully gliding on its shimmering waters.\n\nApart from Naini Lake, the town boasts several other attractions, including Naina Devi Temple, Tiffin Top, Snow View Point, and the Mall Road. Naina Devi Temple, located on the northern shore of Naini Lake, is a sacred site dedicated to Goddess Naina Devi.\n\nTiffin Top, also known as Dorothy's Seat, offers panoramic views of the Himalayas and the town below, making it a popular spot for picnics and trekking. Snow View Point, accessible by cable car, provides breathtaking vistas of snow-capped peaks, including Nanda Devi, Trishul, and Nanda Kot.\n\nThe Mall Road, lined with shops, restaurants, and colonial-era buildings, is the heart of Nainital's bustling activity. Visitors can stroll along the promenade, indulge in local delicacies, and shop for souvenirs.\n\nNainital is not only a haven for sightseeing but also offers various adventure activities such as trekking, horse riding, and paragliding. With its pleasant climate and scenic beauty, Nainital beckons travelers year-round, promising a rejuvenating experience amidst nature's splendor.",
+//   "category": [
+//     "hill & mountain lover",
+//     "romantic",
+//     "relaxation"
+//   ],
+//   "image": "https://static.toiimg.com/photo/106066254/Nainital.jpg?width=748&resize=4"
+// }
 
 export default function UpdateTourForm() {
   const params = useParams();
   const {
     data,
-    error,
+    error: fetchError,
     isError,
     isPending: loading,
-  } = useFetch(`/hotel/${params.id}`);
+  } = useFetch(`/tour/${params.id}`);
+
   const [mainImg, setMainimg] = useState([]);
-  const [otherImg, setOtherImg] = useState([]);
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [cost, setCost] = useState("");
-  const [city, setCity] = useState("");
-  const [localError, setLocalError] = useState("");
-  const [maplocation, setMapLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
+  const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     if (data) {
-      setName(data.name);
-      setLocation(data.location);
-      setCost(data.cost);
-      setCity(data.city);
-      setMapLocation(data.mapLocation);
-      setMainimg([data.images[0]]);
-      setOtherImg(data.images.slice(1));
+      setName(data.title);
+      setMainimg([data.image]);
+      setDescription(data.description);
+      const temp = data.category.map((el = "") => el.toUpperCase());
+      setSelectedItems([...temp]);
     }
   }, [data]);
 
+  const handleChange = (event, newValues) => {
+    setSelectedItems(newValues);
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
-    setLocalError("");
-    const images = [...mainImg, ...otherImg];
-    if (images.length < 1) {
-      setLocalError("Please Upload atleast 1 image");
+    setError("");
+    const image = mainImg[0];
+    if (!image) {
+      setError("Please Upload atleast 1 image");
       return;
     }
-    if (maplocation.includes("src")) {
-      setLocalError("incorrect map");
-      return;
-    }
-    if (!maplocation.includes("embed")) {
-      setLocalError("incorrect map");
-      return;
-    }
-    if (images.length > 9) {
-      setLocalError(
-        `Maximum limit is 9, you have selected ${
-          images.length
-        } images, Please remove ${images.length - 9} image`
-      );
-      return;
-    }
-    const dataObj = {
-      name: name,
-      images: [...mainImg, ...otherImg],
-      location: location,
-      mapLocation: maplocation,
-      cost: cost,
-      city: city,
+
+    const data = {
+      title: name,
+      image: image,
+      description,
+      Category: selectedItems,
       id: params.id,
     };
-    console.log(dataObj);
+    console.log(data);
   }
+
   if (isError) {
-    return <p>Error:{error}</p>;
+    return (
+      <Typography marginTop={"2rem"} textAlign={"center"}>
+        Error : {fetchError.message}
+      </Typography>
+    );
   }
+
   if (loading) {
     return <Loader />;
   }
+
   return (
     <Box
       component={"form"}
@@ -111,7 +124,7 @@ export default function UpdateTourForm() {
           gutterBottom
           variant="h5"
         >
-          Edit Homestay
+          Add new Homestay
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
@@ -126,7 +139,7 @@ export default function UpdateTourForm() {
           sx={{ marginBottom: "1.5rem" }}
           fullWidth
           required
-          label="Homestay Name"
+          label="Tour Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -136,53 +149,48 @@ export default function UpdateTourForm() {
           fullWidth
           required
           multiline
-          maxRows={3}
-          label="Address"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          minRows={3}
+          maxRows={25}
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
-        <Grid spacing={2} container>
-          <Grid item xs={6}>
-            <TextField
-              sx={{ marginBottom: "1.5rem" }}
-              fullWidth
-              required
-              label="Price"
-              value={cost}
-              onChange={(e) => setCost(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              sx={{ marginBottom: "1.5rem" }}
-              fullWidth
-              required
-              label="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </Grid>
-        </Grid>
-
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-
-        <ImageUploader
-          setUploadedImages={setOtherImg}
-          uploadedImages={otherImg}
-          maxFiles={8}
+        <Autocomplete
+          autoCapitalize="true"
+          multiple
+          value={selectedItems}
+          // defaultValue={selectedItems}
+          onChange={handleChange}
+          options={[
+            "ADVENTURE",
+            "HILL & MOUNTAIN LOVER",
+            "RELIGIOUS",
+            "ROMANTIC",
+            "RELAXATION",
+            "TREKKING LOVER",
+          ]}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option}>
+                {option}
+              </li>
+            );
+          }}
+          renderTags={(tagValue, getTagProps) => {
+            return tagValue.map((option, index) => (
+              <Chip {...getTagProps({ index })} key={option} label={option} />
+            ));
+          }}
+          renderInput={(params) => (
+            <TextField {...params} label="Select Interest or type here" />
+          )}
         />
-
-        <MapViewer
-          type="update"
-          location={maplocation}
-          setLocation={setMapLocation}
-        />
-
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
+            marginTop: "1rem",
           }}
         >
           <Button
@@ -194,10 +202,10 @@ export default function UpdateTourForm() {
             Upload
           </Button>
         </Box>
-        {localError && (
+        {error && (
           <>
             <br />
-            <p style={{ color: "red" }}>{localError}</p>
+            <p style={{ color: "red" }}>{error}</p>
           </>
         )}
       </Paper>

@@ -6,11 +6,14 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-function FeaturedPost({ post }) {
+function FeaturedPost({ post, type = "" }) {
   let navigate = useNavigate();
   let imgUrl;
   let navUrl;
-  if (post.images) {
+  if (type === "update") {
+    imgUrl = post.image;
+    navUrl = `${post.id}`;
+  } else if (post.images) {
     imgUrl = post.images[0];
     navUrl = `/package/${post.id}`;
   } else {

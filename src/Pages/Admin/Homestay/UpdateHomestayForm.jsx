@@ -71,7 +71,7 @@ export default function UpdateHomestayForm() {
     console.log(dataObj);
   }
   if (isError) {
-    return <p>Error:{error}</p>;
+    return <p>Error:{error.message}</p>;
   }
   if (loading) {
     return <Loader />;
