@@ -40,6 +40,7 @@ import ManageTourPackage from "./Pages/Admin/TourPackage/ManageTourPackage.jsx";
 import AddHotel from "./Pages/Admin/Hotel/AddHotel.jsx";
 import UpdateHotel from "./Pages/Admin/Hotel/UpdateHotel.jsx";
 import DeleteHotel from "./Pages/Admin/Hotel/DeleteHotel.jsx";
+import UpdateHotelForm from "./Pages/Admin/Hotel/UpdateHotelForm.jsx";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="managehotel" element={<ManageHotel />}>
             <Route path="add" element={<AddHotel />} />
             <Route path="update" element={<UpdateHotel />} />
+            <Route path="update/:id" element={<UpdateHotelForm />} />
             <Route path="delete" element={<DeleteHotel />} />
           </Route>
           <Route path="managehomestay" element={<ManageHomestay />} />

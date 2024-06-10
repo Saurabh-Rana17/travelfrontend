@@ -25,15 +25,11 @@ export default function AddHotel() {
       setError("incorrect map");
       return;
     }
-    if (!maplocation.includes("embed")) {
-      setError("incorrect map");
-      return;
-    }
     if (images.length > 9) {
       setError(
         `Maximum limit is 9, you have selected ${
           images.length
-        } images, Please remove ${images.length - 9} image`
+        } images, Please remove ${images.length - 9}images`
       );
       return;
     }

@@ -1,8 +1,18 @@
-import { Skeleton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardMedia,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { IMGBB } from "../../../utility/CONSTANT";
+import { toast } from "react-toastify";
+
 const dropZoneStyles = {
   border: "2px dashed #cccccc",
   borderRadius: "4px",
@@ -13,114 +23,124 @@ const dropZoneStyles = {
   width: "80%",
 };
 
+const disabledDropZoneStyles = {
+  ...dropZoneStyles,
+  backgroundColor: "#f0f0f0",
+  cursor: "not-allowed",
+  opacity: 0.5,
+};
+
 const imagePreviewStyles = {
-  display: "inline-block",
   width: "200px",
   height: "200px",
   objectFit: "cover",
-  margin: "0rem 0.2rem",
+  margin: "0px",
 };
 
-function ImageSkeleton() {
-  return (
-    <>
-      <Skeleton
-        sx={{
-          marginY: "1rem ",
-          marginX: "auto",
-        }}
-        variant="rectangular"
-        width={"200px"}
-        height={"200px"}
-      ></Skeleton>
-    </>
-  );
-}
-
-function ImageUploader({ maxFiles }) {
-  const [uploadedImages, setUploadedImages] = useState([]);
+function ImageUploader({ maxFiles, uploadedImages, setUploadedImages }) {
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     if (fileRejections && fileRejections.length > 0) {
       // Handle rejection
-      setError(
-        `Some files were rejected. Make sure you upload only images and no more than ${maxFiles} files.`
-      );
+      setError(` Make sure you upload  no more than ${maxFiles} files.`);
     } else {
       setError("");
-      setLoading(true);
-      uploadImages(acceptedFiles);
+      setUploadedImages((prev) => [...prev, ...acceptedFiles]);
     }
   }, []);
 
-  const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
-    useDropzone({
-      accept: {
-        "image/*": [],
-      },
-      maxFiles,
-      onDrop: onDrop,
-    });
+  useEffect(() => {
+    if (uploadedImages.length >= maxFiles) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [uploadedImages]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    maxFiles,
+    onDrop: onDrop,
+  });
 
   const handleImageError = (event) => {
     // Handle image error
+    toast.error("Error loading image");
     console.log("Error loading image:", event.target.src);
   };
 
-  const uploadImages = async (files) => {
-    const API_KEY = IMGBB;
+  function handleRemove(fileToRemove) {
+    const newArr = uploadedImages.filter((file) => file !== fileToRemove);
+    setUploadedImages(newArr);
+  }
 
-    const promises = files.map((file) => {
-      const formData = new FormData();
-      formData.append("image", file);
+  const files = uploadedImages.map((file, index) => (
+    <Card
+      key={index}
+      sx={{
+        width: "200px",
+        margin: "0.5rem",
+        display: "inline-block",
+      }}
+    >
+      <CardMedia
+        component="img"
+        sx={{
+          // objectFit: "cover",
+          width: "200px",
+          height: "200px",
+          objectFit: "cover",
+        }}
+        image={URL.createObjectURL(file)}
+        alt={file.path}
+        onError={handleImageError}
+      />
 
-      return axios
-        .post(`https://api.imgbb.com/1/upload?key=${API_KEY}`, formData)
-        .then((response) => response.data.data)
-        .catch((error) => {
-          console.error("Error uploading to ImageBB:", error);
-          setError("Error uploading to ImageBB. Please try again.");
-        });
-    });
-
-    const results = await Promise.all(promises);
-    setLoading(false);
-    setUploadedImages(results.filter((result) => result));
-  };
-  console.log(uploadedImages[0]);
+      <CardActions>
+        <Button
+          onClick={() => handleRemove(file)}
+          sx={{ width: "100%" }}
+          color="error"
+          size="small"
+        >
+          Remove
+        </Button>
+      </CardActions>
+    </Card>
+  ));
 
   return (
     <section style={{ marginBottom: "0.5rem" }} className="container">
-      <div style={dropZoneStyles} {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
-        <p>
-          Click here to select {maxFiles === 1 && "Main"} Image or Drop the
-          images here
-        </p>
-      </div>
+      {isDisabled && (
+        <div style={isDisabled ? disabledDropZoneStyles : dropZoneStyles}>
+          <p>Maximum Limit Reached, Remove a File Before Uploading more</p>
+        </div>
+      )}
+
+      {!isDisabled && (
+        <div
+          style={dropZoneStyles}
+          {...getRootProps({ className: "dropzone" })}
+        >
+          <input {...getInputProps()} />
+          <p>
+            Click here to select {maxFiles === 1 && "Main"} Image , Max limit{" "}
+            {maxFiles} Image
+          </p>
+        </div>
+      )}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <aside>
-        <h4>Uploaded Images</h4>
-        {loading && <ImageSkeleton />}
-        {!loading && (
-          <>
-            <div>
-              {uploadedImages.map((image, index) => (
-                <div style={{ display: "inline-block" }} key={index}>
-                  <img
-                    src={image?.medium?.url || image.url}
-                    alt={image.image.filename}
-                    onError={handleImageError}
-                    style={imagePreviewStyles}
-                  />
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <h4>
+          Uploaded Image
+          {maxFiles === 1 ? "" : "s"}{" "}
+        </h4>
+        {files}
       </aside>
     </section>
   );

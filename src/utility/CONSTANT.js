@@ -10,4 +10,4 @@ export const MainFeaturesPostData = {
 
 export const BaseUrl = "https://travel-rv5s.onrender.com";
 
-export const IMGBB = "87a2fd8867b180f81f2b5f53ad9eb18e";
+export const IMGBB = "565193e37058ddd8ee4c2ff91257e6e9";

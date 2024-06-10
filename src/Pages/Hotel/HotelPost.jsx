@@ -6,13 +6,17 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-function HotelPost({ post }) {
+function HotelPost({ post, type = "" }) {
   let navigate = useNavigate();
   let imgUrl;
   let navUrl;
   if (post.images) {
     imgUrl = post.images[0];
-    navUrl = `/hotel/${post.id}`;
+    if (type === "update") {
+      navUrl = `${post.id}`;
+    } else {
+      navUrl = `/hotel/${post.id}`;
+    }
   }
   function exploreHandler() {
     if (post.images) navigate(navUrl);

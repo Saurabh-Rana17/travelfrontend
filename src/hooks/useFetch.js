@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { BaseUrl } from "../utility/CONSTANT";
 
-const useFetch = (url, staleTimeValue = 20 * 1000) => {
+const useFetch = (url) => {
   async function fetchData() {
     const response = await fetch(BaseUrl + url);
     if (!response.ok) {
@@ -15,7 +15,7 @@ const useFetch = (url, staleTimeValue = 20 * 1000) => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: [url],
     queryFn: fetchData,
-    staleTime: staleTimeValue,
+    // staleTime: staleTimeValue,
     refetchOnWindowFocus: false,
   });
 
