@@ -46,7 +46,10 @@ export default function AdminLayout() {
             to={section.url}
             sx={{
               p: 1,
-              mr: "2rem",
+              mr: {
+                xs: "1rem",
+                sm: "2rem",
+              },
               flexShrink: 0,
               backgroundColor: grey[50],
               ":hover": {
