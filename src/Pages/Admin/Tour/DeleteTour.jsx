@@ -1,45 +1,17 @@
-import { Button, Grid, Typography } from "@mui/material";
-import React from "react";
+import { Button, Grid, Typography, createTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import FeaturedPost from "../../../components/Post/FeaturedPost";
+import HorizontalSkeleton from "../../../components/Skeleton/HorizontalSkeleton";
+import useFetch from "../../../hooks/useFetch";
+
 import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-import { useQuery } from "@tanstack/react-query";
-import HorizontalSkeleton from "../../../components/Skeleton/HorizontalSkeleton";
-
-const fetchData = async () => {
-  const response = await fetch(
-    `https://travel-rv5s.onrender.com/hotel/filter`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cost: "0,100000000",
-      }),
-    }
-  );
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch ${response.status}  ${response.statusText}`
-    );
-  }
-  return response.json();
-};
-
-function handleDelete(id) {
-  console.log(id);
-}
-
-export default function DeleteTour() {
-  // const loading = false;
-  const {
-    data: post,
-    isError,
-    error,
-    isPending: loading,
-  } = useQuery({ queryKey: ["/homestay"], queryFn: fetchData });
+function DeleteTour() {
+  const { data: post, isError, error, isPending: loading } = useFetch("/tour");
   if (isError) {
     return (
       <Typography marginTop={"2rem"} textAlign={"center"}>
@@ -47,7 +19,9 @@ export default function DeleteTour() {
       </Typography>
     );
   }
-
+  function handleClick(id) {
+    console.log(id);
+  }
   return (
     <>
       <Typography
@@ -55,39 +29,26 @@ export default function DeleteTour() {
         component={"h1"}
         variant="h4"
       >
-        Select a Homestay to Delete
+        Select a Tour to Update
       </Typography>
       {!loading && (
         <Grid container spacing={4}>
           {post.map((post) => (
             <Grid key={post.id} item xs={12} md={6}>
-              <Card
-                sx={{
-                  display: { xs: "none", sm: "flex" },
-                  height: "10rem",
-                }}
-              >
+              <Card sx={{ display: { xs: "none", sm: "flex" } }}>
                 <CardContent sx={{ flex: 1 }}>
                   <Typography component="h2" variant="h5">
                     {post.name ? post.name : post.title}
                   </Typography>
-                  <Typography
-                    sx={{ height: "2.4rem" }}
-                    variant="subtitle1"
-                    paragraph
-                  >
-                    📍{post.location.substring(0, 70)}...
-                  </Typography>
-                  <Typography variant="subtitle1" component={"b"}>
-                    💵<b>₹{post.cost}</b>
+                  <Typography variant="subtitle1" paragraph>
+                    {post.description.substring(0, 80)}...
                   </Typography>
                   <Button
-                    onClick={() => handleDelete(post.id)}
-                    sx={{ display: "block" }}
+                    onClick={() => handleClick(post.id)}
                     variant="contained"
                     color="error"
                   >
-                    DELETE
+                    Delete
                   </Button>
                 </CardContent>
                 <CardMedia
@@ -98,8 +59,8 @@ export default function DeleteTour() {
                     objectFit: "cover",
                     display: { xs: "none", sm: "flex" },
                   }}
-                  image={post.images[0]}
-                  alt={post.name}
+                  image={post.image}
+                  // alt={post.imageLabel}
                 />
               </Card>
 
@@ -113,26 +74,22 @@ export default function DeleteTour() {
                 <CardMedia
                   component="img"
                   height="250"
-                  image={post.images[0]}
-                  alt={post.name}
+                  image={post.image}
+                  // alt={post.imageLabel}
                 />
                 <CardContent>
                   <Typography variant="h5" component="h2">
                     {post.name ? post.name : post.title}
                   </Typography>
                   <Typography variant="subtitle1" paragraph>
-                    📍{post.location.substring(0, 197)}
-                  </Typography>
-                  <Typography variant="subtitle1" component={"b"}>
-                    💵<b>₹{post.cost}</b>
+                    {post.description.substring(0, 197)} ...
                   </Typography>
                   <Button
-                    onClick={() => handleDelete(post.id)}
-                    sx={{ display: "block" }}
+                    onClick={() => handleClick(post.id)}
                     variant="contained"
                     color="error"
                   >
-                    DELETE
+                    Delete
                   </Button>
                 </CardContent>
               </Card>
@@ -144,3 +101,5 @@ export default function DeleteTour() {
     </>
   );
 }
+
+export default DeleteTour;
