@@ -29,7 +29,7 @@ function DeleteTour() {
         component={"h1"}
         variant="h4"
       >
-        Select a Tour to Update
+        Select a Tour to Delete
       </Typography>
       {!loading && (
         <Grid container spacing={4}>
