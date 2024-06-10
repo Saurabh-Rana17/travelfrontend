@@ -15,20 +15,6 @@ import useFetch from "../../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import Loader from "../../../components/Skeleton/Loader";
 
-// {
-//   "_id": {
-//     "$oid": "6628ff37cf6d6408265228e1"
-//   },
-//   "title": "Nainital ",
-//   "description": "Nainital, often referred to as the 'Lake District of India,' is a charming hill station nestled in the Kumaon foothills of the Himalayas in the state of Uttarakhand. Surrounded by lush greenery and dotted with picturesque lakes, Nainital is a paradise for nature lovers and adventure enthusiasts alike.\n\nThe town derives its name from the serene Naini Lake, which is the centerpiece of the region. Legend has it that the lake is one of the 64 Shakti Peeths, where parts of the charred body of Goddess Sati fell on Earth. Today, Naini Lake offers boating opportunities, allowing visitors to admire the surrounding hills while peacefully gliding on its shimmering waters.\n\nApart from Naini Lake, the town boasts several other attractions, including Naina Devi Temple, Tiffin Top, Snow View Point, and the Mall Road. Naina Devi Temple, located on the northern shore of Naini Lake, is a sacred site dedicated to Goddess Naina Devi.\n\nTiffin Top, also known as Dorothy's Seat, offers panoramic views of the Himalayas and the town below, making it a popular spot for picnics and trekking. Snow View Point, accessible by cable car, provides breathtaking vistas of snow-capped peaks, including Nanda Devi, Trishul, and Nanda Kot.\n\nThe Mall Road, lined with shops, restaurants, and colonial-era buildings, is the heart of Nainital's bustling activity. Visitors can stroll along the promenade, indulge in local delicacies, and shop for souvenirs.\n\nNainital is not only a haven for sightseeing but also offers various adventure activities such as trekking, horse riding, and paragliding. With its pleasant climate and scenic beauty, Nainital beckons travelers year-round, promising a rejuvenating experience amidst nature's splendor.",
-//   "category": [
-//     "hill & mountain lover",
-//     "romantic",
-//     "relaxation"
-//   ],
-//   "image": "https://static.toiimg.com/photo/106066254/Nainital.jpg?width=748&resize=4"
-// }
-
 export default function UpdateTourForm() {
   const params = useParams();
   const {
@@ -64,6 +50,10 @@ export default function UpdateTourForm() {
     const image = mainImg[0];
     if (!image) {
       setError("Please Upload atleast 1 image");
+      return;
+    }
+    if (selectedItems.length < 1) {
+      setError("Select Category");
       return;
     }
 
@@ -157,6 +147,7 @@ export default function UpdateTourForm() {
         />
 
         <Autocomplete
+          aria-required
           autoCapitalize="true"
           multiple
           value={selectedItems}
@@ -183,7 +174,7 @@ export default function UpdateTourForm() {
             ));
           }}
           renderInput={(params) => (
-            <TextField {...params} label="Select Interest or type here" />
+            <TextField {...params} label="Select Category Here" />
           )}
         />
         <Box
