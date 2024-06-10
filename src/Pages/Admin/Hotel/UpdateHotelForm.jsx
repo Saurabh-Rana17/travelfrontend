@@ -1,9 +1,9 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ImageUploader from "./ImageUploader";
-import MapViewer from "./MapViewer";
-import useFetch from "../../../hooks/useFetch";
+import ImageUploader from "../../../components/Admin/ImageUploader";
+import MapViewer from "../../../components/Admin/MapViewer";
 import { useParams } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../components/Skeleton/Loader";
 
 export default function UpdateHotelForm() {
@@ -14,20 +14,24 @@ export default function UpdateHotelForm() {
     isError,
     isPending: loading,
   } = useFetch(`/hotel/${params.id}`);
-
   const [mainImg, setMainimg] = useState([]);
   const [otherImg, setOtherImg] = useState([]);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [cost, setCost] = useState("");
   const [city, setCity] = useState("");
-  const [localerror, setLocalError] = useState("");
+  const [localError, setLocalError] = useState("");
   const [maplocation, setMapLocation] = useState("");
 
   useEffect(() => {
     if (data) {
       setName(data.name);
-      setMainimg([[data.images[0]]]);
+      setLocation(data.location);
+      setCost(data.cost);
+      setCity(data.city);
+      setMapLocation(data.mapLocation);
+      setMainimg([data.images[0]]);
+      setOtherImg(data.images.slice(1));
     }
   }, [data]);
 
@@ -43,29 +47,31 @@ export default function UpdateHotelForm() {
       setLocalError("incorrect map");
       return;
     }
+    if (!maplocation.includes("embed")) {
+      setLocalError("incorrect map");
+      return;
+    }
+    if (images.length > 9) {
+      setLocalError(
+        `Maximum limit is 9, you have selected ${
+          images.length
+        } images, Please remove ${images.length - 9} image`
+      );
+      return;
+    }
     const dataObj = {
       name: name,
-      images: images,
+      images: [...mainImg, ...otherImg],
       location: location,
       mapLocation: maplocation,
       cost: cost,
       city: city,
     };
+    console.log(dataObj);
   }
-  console.log(data);
-
   if (loading) {
     return <Loader />;
   }
-
-  if (isError) {
-    return (
-      <Typography marginTop={"2rem"} textAlign={"center"}>
-        Error : {error.message}
-      </Typography>
-    );
-  }
-
   return (
     <Box
       component={"form"}
@@ -101,10 +107,10 @@ export default function UpdateHotelForm() {
           gutterBottom
           variant="h5"
         >
-          Update Hotel
+          Add new Hotel
         </Typography>
 
-        <Typography variant="h6">Selected Main Image</Typography>
+        <Typography variant="h6">Select Main Image</Typography>
 
         <ImageUploader
           maxFiles={1}
@@ -159,11 +165,15 @@ export default function UpdateHotelForm() {
 
         <ImageUploader
           setUploadedImages={setOtherImg}
-          uploadedImages={setOtherImg}
+          uploadedImages={otherImg}
           maxFiles={8}
         />
 
-        <MapViewer location={maplocation} setLocation={setMapLocation} />
+        <MapViewer
+          type="update"
+          location={maplocation}
+          setLocation={setMapLocation}
+        />
 
         <Box
           sx={{
@@ -180,16 +190,10 @@ export default function UpdateHotelForm() {
             Upload
           </Button>
         </Box>
-        {error && (
+        {localError && (
           <>
             <br />
-            <p style={{ color: "red" }}>{error}</p>
-          </>
-        )}
-        {localerror && (
-          <>
-            <br />
-            <p style={{ color: "red" }}>{localerror}</p>
+            <p style={{ color: "red" }}>{localError}</p>
           </>
         )}
       </Paper>

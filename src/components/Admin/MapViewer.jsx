@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function convertString(demostr = "") {
   if (!demostr.includes("http")) {
@@ -12,8 +12,14 @@ function convertString(demostr = "") {
   return temp;
 }
 
-export default function MapViewer({ location, setLocation }) {
+export default function MapViewer({ location, setLocation, type = "add" }) {
   const [showMap, setShowMap] = useState(false);
+
+  useEffect(() => {
+    if (type === "update") {
+      setShowMap(true);
+    }
+  }, []);
 
   function handleClick() {
     const newStr = convertString(location);
@@ -22,7 +28,6 @@ export default function MapViewer({ location, setLocation }) {
       setShowMap(true);
     }
   }
-
   return (
     <>
       <Grid container>
@@ -77,7 +82,7 @@ export default function MapViewer({ location, setLocation }) {
           },
         }}
       >
-        {!showMap && <p>Click on Save Button</p>}
+        {!showMap && <p>Click on Save Button to view Map</p>}
         {showMap && (
           <iframe
             src={location}

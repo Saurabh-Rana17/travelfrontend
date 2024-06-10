@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { IMGBB } from "../../../utility/CONSTANT";
+import { IMGBB } from "../../utility/CONSTANT";
 import { toast } from "react-toastify";
 
 const dropZoneStyles = {
@@ -78,6 +78,13 @@ function ImageUploader({ maxFiles, uploadedImages, setUploadedImages }) {
     setUploadedImages(newArr);
   }
 
+  function generateUrl(file) {
+    if (typeof file === "string") {
+      return file;
+    }
+    return URL.createObjectURL(file);
+  }
+
   const files = uploadedImages.map((file, index) => (
     <Card
       key={index}
@@ -95,8 +102,9 @@ function ImageUploader({ maxFiles, uploadedImages, setUploadedImages }) {
           height: "200px",
           objectFit: "cover",
         }}
-        image={URL.createObjectURL(file)}
-        alt={file.path}
+        // image={URL.createObjectURL(file)}
+        image={generateUrl(file)}
+        alt={file.path || ""}
         onError={handleImageError}
       />
 
@@ -112,6 +120,8 @@ function ImageUploader({ maxFiles, uploadedImages, setUploadedImages }) {
       </CardActions>
     </Card>
   ));
+
+  console.log(uploadedImages);
 
   return (
     <section style={{ marginBottom: "0.5rem" }} className="container">

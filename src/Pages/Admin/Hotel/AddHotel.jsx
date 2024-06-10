@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import ImageUploader from "./ImageUploader";
-import MapViewer from "./MapViewer";
+import ImageUploader from "../../../components/Admin/ImageUploader";
+import MapViewer from "../../../components/Admin/MapViewer";
 
 export default function AddHotel() {
   const [mainImg, setMainimg] = useState([]);
