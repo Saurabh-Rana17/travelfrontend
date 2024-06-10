@@ -67,7 +67,6 @@ export default function UpdateHotelForm() {
       cost: cost,
       city: city,
     };
-    console.log(dataObj);
   }
   if (loading) {
     return <Loader />;

@@ -45,8 +45,6 @@ export default function AddHotel() {
       cost: cost,
       city: city,
     };
-
-    console.log(data);
   }
   return (
     <Box

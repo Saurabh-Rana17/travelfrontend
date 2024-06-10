@@ -33,7 +33,8 @@ export default function UpdateHotel() {
     isError,
     error,
     isPending: loading,
-  } = useQuery({ queryKey: ["/homestay"], queryFn: fetchData });
+  } = useQuery({ queryKey: ["/hotel"], queryFn: fetchData });
+
   if (isError) {
     return (
       <Typography marginTop={"2rem"} textAlign={"center"}>
