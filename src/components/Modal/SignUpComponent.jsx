@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, Chip } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -159,7 +159,7 @@ export default function SignUpComponent({ setContent, setShowModal }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Autocomplete
+                {/* <Autocomplete
                   multiple
                   value={selectedItems}
                   onChange={handleChange}
@@ -174,6 +174,41 @@ export default function SignUpComponent({ setContent, setShowModal }) {
                   renderInput={(params) => (
                     <TextField
                       key={params}
+                      {...params}
+                      label="Select Interest or type here"
+                    />
+                  )}
+                /> */}
+                <Autocomplete
+                  multiple
+                  value={selectedItems}
+                  onChange={handleChange}
+                  options={[
+                    "Adventure",
+                    "Hill & Mountain lover",
+                    "Religious",
+                    "Romantic",
+                    "Relaxation",
+                    "Trekking lover",
+                  ]}
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option}>
+                        {option}
+                      </li>
+                    );
+                  }}
+                  renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        key={option}
+                        label={option}
+                      />
+                    ));
+                  }}
+                  renderInput={(params) => (
+                    <TextField
                       {...params}
                       label="Select Interest or type here"
                     />
