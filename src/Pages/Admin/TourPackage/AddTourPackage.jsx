@@ -10,30 +10,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
-import MapViewer from "../../../components/Admin/MapViewer";
 import useFetch from "../../../hooks/useFetch";
-
-// {
-//   "_id": {
-//     "$oid": "662dc65bd78237f957c68776"
-//   },
-//   "name": "Char Dham Yatra",
-//   "tours": [
-//     "662ba892e5940cc79c4d6e0b",
-//     "662bba22e5940cc79c4d6e1c",
-//     "662bb6ece5940cc79c4d6e1a",
-//     "662bb6ece5940cc79c4d6e1b"
-//   ],
-//   "images": [
-//     "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/06/chardham-yatra-1591697406.jpg",
-//     "https://www.savaari.com/blog/wp-content/uploads/2024/01/1024px-Kedarnath_2-1_11zon-1.jpg",
-//     "https://www.chardham-pilgrimage-tour.com/assets/images/badrinath-banner3.webp",
-//     "https://uttarakhandtriptrek.com/wp-content/uploads/2019/01/gangotri-temple-Saurabh-Chatterjee.jpg",
-//     "https://www.chardhamplan.com/images/Yamunotri-place-to-visit.png",
-//     "https://www.holidify.com/images/bgImages/GANGOTRI.jpg"
-//   ],
-//   "description": "The Char Dham Yatra is a revered pilgrimage circuit in the Indian state of Uttarakhand, comprising four sacred sites: Yamunotri, Gangotri, Kedarnath, and Badrinath. These destinations hold deep religious significance for Hindus, with each site dedicated to a different deity.\n\nPilgrims undertake this journey seeking spiritual purification and divine blessings. The yatra typically begins with a visit to Yamunotri and Gangotri, the sources of the Yamuna and Ganga rivers, respectively.\n\nKedarnath, nestled in the Himalayas, is home to an ancient Shiva temple accessible via a trekking route. Finally, the pilgrimage concludes at Badrinath, where devotees pay homage to Lord Vishnu.\n\nThe Char Dham Yatra offers a profound spiritual experience amidst awe-inspiring natural beauty, attracting thousands of devotees and tourists annually."
-// }
 
 export default function AddTourPackage() {
   const [mainImg, setMainimg] = useState([]);
