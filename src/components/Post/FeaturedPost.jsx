@@ -10,7 +10,10 @@ function FeaturedPost({ post, type = "" }) {
   let navigate = useNavigate();
   let imgUrl;
   let navUrl;
-  if (type === "update") {
+  if (type === "package") {
+    imgUrl = post.images[0];
+    navUrl = `${post.id}`;
+  } else if (type === "update") {
     imgUrl = post.image;
     navUrl = `${post.id}`;
   } else if (post.images) {
@@ -19,9 +22,6 @@ function FeaturedPost({ post, type = "" }) {
   } else {
     imgUrl = post.image;
     navUrl = `/tour/${post.id}`;
-  }
-  function exploreHandler() {
-    if (post.images) navigate(navUrl);
   }
 
   return (
@@ -35,11 +35,7 @@ function FeaturedPost({ post, type = "" }) {
             <Typography variant="subtitle1" paragraph>
               {post.description.substring(0, 80)}...
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              onClick={exploreHandler}
-            >
+            <Typography variant="subtitle1" color="primary">
               Explore
             </Typography>
           </CardContent>
@@ -76,11 +72,7 @@ function FeaturedPost({ post, type = "" }) {
             <Typography variant="subtitle1" paragraph>
               {post.description.substring(0, 197)} ...
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              onClick={exploreHandler}
-            >
+            <Typography variant="subtitle1" color="primary">
               Explore
             </Typography>
           </CardContent>
