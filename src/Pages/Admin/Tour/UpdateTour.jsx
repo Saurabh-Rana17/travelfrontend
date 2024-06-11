@@ -1,5 +1,5 @@
-import { Grid, Typography, createTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Grid, Typography } from "@mui/material";
+import React from "react";
 import FeaturedPost from "../../../components/Post/FeaturedPost";
 import HorizontalSkeleton from "../../../components/Skeleton/HorizontalSkeleton";
 import useFetch from "../../../hooks/useFetch";
