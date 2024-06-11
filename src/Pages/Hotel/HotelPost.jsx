@@ -18,9 +18,6 @@ function HotelPost({ post, type = "" }) {
       navUrl = `/hotel/${post.id}`;
     }
   }
-  function exploreHandler() {
-    if (post.images) navigate(navUrl);
-  }
 
   return (
     <Grid item xs={12} md={6}>
@@ -36,11 +33,7 @@ function HotelPost({ post, type = "" }) {
             <Typography variant="subtitle1" component={"b"}>
               💵<b>₹{post.cost}</b>
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              onClick={exploreHandler}
-            >
+            <Typography variant="subtitle1" color="primary">
               Explore
             </Typography>
           </CardContent>
@@ -80,11 +73,7 @@ function HotelPost({ post, type = "" }) {
             <Typography variant="subtitle1" component={"b"}>
               💵<b>₹{post.cost}</b>
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              onClick={exploreHandler}
-            >
+            <Typography variant="subtitle1" color="primary">
               Explore
             </Typography>
           </CardContent>
