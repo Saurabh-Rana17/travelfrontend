@@ -115,8 +115,6 @@ export default function UpdateHotelForm() {
           Update Hotel
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-
         <ImageViewer images={mainImg} setImages={setMainimg} type="single" />
 
         <TextField
@@ -161,8 +159,6 @@ export default function UpdateHotelForm() {
             />
           </Grid>
         </Grid>
-
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
 
         <ImageViewer images={otherImg} setImages={setOtherImg} type="multi" />
 

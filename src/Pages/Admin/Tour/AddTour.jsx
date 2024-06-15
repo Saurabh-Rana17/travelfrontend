@@ -86,14 +86,6 @@ export default function AddTour() {
           Add New Tour
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-
-        {/* <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        /> */}
-
         <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField

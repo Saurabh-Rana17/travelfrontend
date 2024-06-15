@@ -172,12 +172,7 @@ export default function AddTourPackage() {
         >
           Update Tour Package
         </Typography>
-        <Typography variant="h6">Select Main Image</Typography>
-        {/* <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        /> */}
+
         <ImageViewer type="single" setImages={setMainimg} images={mainImg} />
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -198,12 +193,6 @@ export default function AddTourPackage() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-        {/* <ImageUploader
-          setUploadedImages={setOtherImg}
-          uploadedImages={otherImg}
-          maxFiles={8}
-        /> */}
 
         <ImageViewer type="multi" setImages={setOtherImg} images={otherImg} />
 

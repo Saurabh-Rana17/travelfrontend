@@ -115,13 +115,6 @@ export default function UpdateHomestayForm() {
           Edit Homestay
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-        {/* 
-        <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        /> */}
         <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
@@ -166,14 +159,6 @@ export default function UpdateHomestayForm() {
             />
           </Grid>
         </Grid>
-
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-
-        {/* <ImageUploader
-          setUploadedImages={setOtherImg}
-          uploadedImages={otherImg}
-          maxFiles={8}
-        /> */}
 
         <ImageViewer type="multi" images={otherImg} setImages={setOtherImg} />
 

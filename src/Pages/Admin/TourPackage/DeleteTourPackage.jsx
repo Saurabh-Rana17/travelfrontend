@@ -36,7 +36,7 @@ function UpdateTourPackage() {
         component={"h1"}
         variant="h4"
       >
-        Select a Tour Package to Update
+        Select a Tour Package to Delete
       </Typography>
       {!loading && (
         <Grid container spacing={4}>

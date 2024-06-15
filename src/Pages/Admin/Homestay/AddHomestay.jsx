@@ -86,13 +86,6 @@ export default function AddHomestay() {
           Add new Homestay
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-
-        {/* <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        /> */}
         <ImageViewer images={mainImg} setImages={setMainimg} type="single" />
 
         <TextField
@@ -138,13 +131,6 @@ export default function AddHomestay() {
           </Grid>
         </Grid>
 
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-
-        {/* <ImageUploader
-          setUploadedImages={setOtherImg}
-          uploadedImages={otherImg}
-          maxFiles={8}
-        /> */}
         <ImageViewer images={otherImg} setImages={setOtherImg} type="multi" />
 
         <MapViewer location={maplocation} setLocation={setMapLocation} />

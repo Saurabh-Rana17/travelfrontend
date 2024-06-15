@@ -121,15 +121,6 @@ export default function UpdateTourForm() {
           Update Tour
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-
-        {/* <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploaded
-          Images={setMainimg}
-        /> */}
-
         <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
