@@ -2,6 +2,7 @@ import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
 import MapViewer from "../../../components/Admin/MapViewer";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function AddHomestay() {
   const [mainImg, setMainimg] = useState([]);
@@ -87,11 +88,12 @@ export default function AddHomestay() {
 
         <Typography variant="h6">Select Main Image</Typography>
 
-        <ImageUploader
+        {/* <ImageUploader
           maxFiles={1}
           uploadedImages={mainImg}
           setUploadedImages={setMainimg}
-        />
+        /> */}
+        <ImageViewer images={mainImg} setImages={setMainimg} type="single" />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -138,11 +140,12 @@ export default function AddHomestay() {
 
         <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
 
-        <ImageUploader
+        {/* <ImageUploader
           setUploadedImages={setOtherImg}
           uploadedImages={otherImg}
           maxFiles={8}
-        />
+        /> */}
+        <ImageViewer images={otherImg} setImages={setOtherImg} type="multi" />
 
         <MapViewer location={maplocation} setLocation={setMapLocation} />
 
