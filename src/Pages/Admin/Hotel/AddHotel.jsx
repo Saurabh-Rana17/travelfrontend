@@ -2,8 +2,11 @@ import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
 import MapViewer from "../../../components/Admin/MapViewer";
+import { convertImgbb } from "../../../utility/convertImgbb";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function AddHotel() {
+  const [mainImgLink, setMainImgLink] = useState("");
   const [mainImg, setMainimg] = useState([]);
   const [otherImg, setOtherImg] = useState([]);
   const [name, setName] = useState("");
@@ -12,6 +15,7 @@ export default function AddHotel() {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
   const [maplocation, setMapLocation] = useState("");
+  const [showMainImg, setShowMainImg] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -85,12 +89,56 @@ export default function AddHotel() {
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
+        <Grid container>
+          <Grid xs={10} item>
+            <TextField
+              sx={{
+                marginBottom: "1rem",
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  },
+                },
+              }}
+              fullWidth
+              required
+              label="Main Image Link"
+              value={mainImgLink}
+              onChange={(e) => {
+                setMainImgLink(e.target.value);
+                setShowMainImg(false);
+              }}
+            />
+          </Grid>
+          <Grid xs={2} item>
+            <Button
+              onClick={() => {
+                const res = convertImgbb(mainImgLink);
+                setMainimg([res]);
+                setShowMainImg(true);
+              }}
+              sx={{
+                height: "56px",
+                width: "100%",
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+              }}
+              variant="contained"
+            >
+              Save
+            </Button>
+          </Grid>
+        </Grid>
 
-        <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        />
+        {showMainImg && mainImg.length > 0 && (
+          <ImageViewer
+            url={mainImg[0]}
+            handleImageRemove={() => setMainimg([])}
+          />
+        )}
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -136,12 +184,6 @@ export default function AddHotel() {
         </Grid>
 
         <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-
-        <ImageUploader
-          setUploadedImages={setOtherImg}
-          uploadedImages={otherImg}
-          maxFiles={8}
-        />
 
         <MapViewer location={maplocation} setLocation={setMapLocation} />
 

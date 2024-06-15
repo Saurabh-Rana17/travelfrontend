@@ -1,4 +1,4 @@
-export function convertDrive(img = "") {
+export function deprecatedconvertDrive(img = "") {
   // const id = url.substring(url.indexOf("/d/") + 3, url.lastIndexOf("/"));
   // const newStr = `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
   // return newStr;
