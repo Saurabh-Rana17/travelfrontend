@@ -13,6 +13,7 @@ import ImageUploader from "../../../components/Admin/ImageUploader";
 import useFetch from "../../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import Loader from "../../../components/Skeleton/Loader";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function UpdateTourForm() {
   const params = useParams();
@@ -49,6 +50,10 @@ export default function UpdateTourForm() {
     const image = mainImg[0];
     if (!image) {
       setError("Please Upload atleast 1 image");
+      return;
+    }
+    if (mainImg.length > 1) {
+      setError("You can select only one image");
       return;
     }
     if (selectedItems.length < 1) {
@@ -118,11 +123,14 @@ export default function UpdateTourForm() {
 
         <Typography variant="h6">Select Main Image</Typography>
 
-        <ImageUploader
+        {/* <ImageUploader
           maxFiles={1}
           uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        />
+          setUploaded
+          Images={setMainimg}
+        /> */}
+
+        <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}

@@ -138,7 +138,9 @@ export default function ImageViewer({ type = "multi", images, setImages }) {
               Maximum image added
               <br />
               {images.length - max > 0 && (
-                <>remove {images.length - max} image before submitting</>
+                <span style={{ color: "red" }}>
+                  remove {images.length - max} image before submitting{" "}
+                </span>
               )}
             </Typography>
           )}
