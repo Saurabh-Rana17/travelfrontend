@@ -6,7 +6,6 @@ import { convertImgbb } from "../../../utility/convertImgbb";
 import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function AddHotel() {
-  const [mainImgLink, setMainImgLink] = useState("");
   const [mainImg, setMainimg] = useState([]);
   const [otherImg, setOtherImg] = useState([]);
   const [name, setName] = useState("");
@@ -49,6 +48,7 @@ export default function AddHotel() {
       cost: cost,
       city: city,
     };
+    console.log(data);
   }
   return (
     <Box
@@ -88,57 +88,7 @@ export default function AddHotel() {
           Add new Hotel
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-        <Grid container>
-          <Grid xs={10} item>
-            <TextField
-              sx={{
-                marginBottom: "1rem",
-                borderTopRightRadius: 0,
-                borderBottomRightRadius: 0,
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                  },
-                },
-              }}
-              fullWidth
-              required
-              label="Main Image Link"
-              value={mainImgLink}
-              onChange={(e) => {
-                setMainImgLink(e.target.value);
-                setShowMainImg(false);
-              }}
-            />
-          </Grid>
-          <Grid xs={2} item>
-            <Button
-              onClick={() => {
-                const res = convertImgbb(mainImgLink);
-                setMainimg([res]);
-                setShowMainImg(true);
-              }}
-              sx={{
-                height: "56px",
-                width: "100%",
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-              }}
-              variant="contained"
-            >
-              Save
-            </Button>
-          </Grid>
-        </Grid>
-
-        {showMainImg && mainImg.length > 0 && (
-          <ImageViewer
-            url={mainImg[0]}
-            handleImageRemove={() => setMainimg([])}
-          />
-        )}
+        <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -183,7 +133,7 @@ export default function AddHotel() {
           </Grid>
         </Grid>
 
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
+        <ImageViewer type="multi" images={otherImg} setImages={setOtherImg} />
 
         <MapViewer location={maplocation} setLocation={setMapLocation} />
 

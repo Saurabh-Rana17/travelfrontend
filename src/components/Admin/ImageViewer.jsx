@@ -1,10 +1,48 @@
-import { Button, Card, CardActions, CardMedia } from "@mui/material";
-import React from "react";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardMedia,
+  CardActions,
+  Box,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 
-export default function ImageViewer({ url, handleImageRemove }) {
-  return (
+export default function ImageViewer({ type = "multi", images, setImages }) {
+  const max = type === "multi" ? 8 : 1;
+  const [imgText, setImgText] = useState("");
+  const [showMainImg, setShowMainImg] = useState(false);
+  //   const [images, setImages] = useState([]);
+  const [disable, setDisable] = useState(false);
+
+  useEffect(() => {
+    if (images.length >= max) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+  }, [images]);
+
+  function handleRemove(url) {
+    const temp = images.filter((image) => image !== url);
+    setImages(temp);
+  }
+
+  function handleSave() {
+    const splitArr = imgText.split("\n");
+    const temp = splitArr.filter((image) => image.includes("http"));
+    setImages((prev) => {
+      return [...prev, ...temp];
+    });
+    setImgText("");
+    setShowMainImg(true);
+  }
+
+  const files = images.map((file, index) => (
     <Card
-      key={url}
+      key={index}
       sx={{
         width: "200px",
         margin: "0.5rem",
@@ -19,21 +57,118 @@ export default function ImageViewer({ url, handleImageRemove }) {
           height: "200px",
           objectFit: "cover",
         }}
-        // image={URL.createObjectURL(file)}
-        image={url}
-        alt={url}
+        loading="lazy"
+        image={file}
+        alt={"failed"}
       />
 
       <CardActions>
         <Button
-          onClick={() => handleImageRemove(url)}
+          onClick={() => handleRemove(file)}
           sx={{ width: "100%" }}
           color="error"
           size="small"
+          onError={() => {
+            console.log("failed to load ");
+          }}
         >
           Remove
         </Button>
       </CardActions>
     </Card>
+  ));
+
+  console.log(images);
+
+  return (
+    <>
+      <Typography variant="h6">
+        Select {max === 1 ? "Main" : "Other"} Image
+      </Typography>
+      <Grid marginBottom={0} container>
+        <Grid xs={10} item>
+          <TextField
+            disabled={disable}
+            multiline
+            maxRows={14}
+            required={max === 1 ? true : false}
+            sx={{
+              marginBottom: "0rem",
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderTopRightRadius: 0,
+                  borderBottomRightRadius: 0,
+                },
+              },
+            }}
+            fullWidth
+            label="Main Image Link"
+            value={imgText}
+            onChange={(e) => {
+              setImgText(e.target.value);
+            }}
+          />
+          {!disable ? (
+            <Typography
+              variant="body2"
+              marginBottom={"1rem"}
+              textAlign={"center"}
+            >
+              you can add max {max} images
+              <br />
+              enter each link on new line
+            </Typography>
+          ) : (
+            <Typography
+              variant="body2"
+              //   color={"red"}
+              marginBottom={"1rem"}
+              textAlign={"center"}
+            >
+              Maximum image added
+              <br />
+              {images.length - max > 0 && (
+                <>remove {images.length - max + 1} image before adding more</>
+              )}
+            </Typography>
+          )}
+        </Grid>
+
+        <Grid xs={2} item>
+          <Button
+            disabled={!imgText || disable}
+            onClick={handleSave}
+            sx={{
+              height: "56px",
+              width: "100%",
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+            }}
+            variant="contained"
+          >
+            Save
+          </Button>
+        </Grid>
+      </Grid>
+
+      {showMainImg && images.length > 0 && (
+        <>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setShowMainImg(false);
+              setTimeout(() => {
+                setShowMainImg(true);
+              }, 1);
+            }}
+          >
+            Refresh
+          </Button>
+          <Box>{files}</Box>
+        </>
+      )}
+    </>
   );
 }
