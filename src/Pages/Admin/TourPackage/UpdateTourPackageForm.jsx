@@ -14,6 +14,7 @@ import MapViewer from "../../../components/Admin/MapViewer";
 import useFetch from "../../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import Loader from "../../../components/Skeleton/Loader";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function AddTourPackage() {
   const params = useParams();
@@ -171,15 +172,13 @@ export default function AddTourPackage() {
         >
           Update Tour Package
         </Typography>
-
         <Typography variant="h6">Select Main Image</Typography>
-
-        <ImageUploader
+        {/* <ImageUploader
           maxFiles={1}
           uploadedImages={mainImg}
           setUploadedImages={setMainimg}
-        />
-
+        /> */}
+        <ImageViewer type="single" setImages={setMainimg} images={mainImg} />
         <TextField
           sx={{ marginBottom: "1.5rem" }}
           fullWidth
@@ -188,7 +187,6 @@ export default function AddTourPackage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-
         <TextField
           sx={{ marginBottom: "1.5rem" }}
           fullWidth
@@ -200,14 +198,15 @@ export default function AddTourPackage() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-
         <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-
-        <ImageUploader
+        {/* <ImageUploader
           setUploadedImages={setOtherImg}
           uploadedImages={otherImg}
           maxFiles={8}
-        />
+        /> */}
+
+        <ImageViewer type="multi" setImages={setOtherImg} images={otherImg} />
+
         {loading ? (
           "Fetching Tours"
         ) : (
@@ -240,7 +239,6 @@ export default function AddTourPackage() {
             )}
           />
         )}
-
         <Box
           sx={{
             display: "flex",

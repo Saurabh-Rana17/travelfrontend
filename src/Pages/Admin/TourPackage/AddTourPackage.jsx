@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
 import useFetch from "../../../hooks/useFetch";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function AddTourPackage() {
   const [mainImg, setMainimg] = useState([]);
@@ -121,13 +122,13 @@ export default function AddTourPackage() {
           Add New Tour Package
         </Typography>
 
-        <Typography variant="h6">Select Main Image</Typography>
-
-        <ImageUploader
+        {/* <ImageUploader
           maxFiles={1}
           uploadedImages={mainImg}
           setUploadedImages={setMainimg}
-        />
+        /> */}
+
+        <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -150,13 +151,14 @@ export default function AddTourPackage() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
-
-        <ImageUploader
+        {/* <ImageUploader
           setUploadedImages={setOtherImg}
           uploadedImages={otherImg}
           maxFiles={8}
-        />
+        /> */}
+
+        <ImageViewer type="multi" images={otherImg} setImages={setOtherImg} />
+
         {loading ? (
           "Fetching Tours"
         ) : (
