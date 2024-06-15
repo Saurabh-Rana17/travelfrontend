@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 import ImageUploader from "../../../components/Admin/ImageUploader";
 import { Category } from "@mui/icons-material";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function AddTour() {
   const [mainImg, setMainimg] = useState([]);
@@ -28,6 +29,10 @@ export default function AddTour() {
     const image = mainImg[0];
     if (!image) {
       setError("Please Upload atleast 1 image");
+      return;
+    }
+    if (mainImg.length > 1) {
+      setError("You can upload only one image");
       return;
     }
     if (selectedItems.length < 1) {
@@ -78,16 +83,18 @@ export default function AddTour() {
           gutterBottom
           variant="h5"
         >
-          Add new Homestay
+          Add New Tour
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
 
-        <ImageUploader
+        {/* <ImageUploader
           maxFiles={1}
           uploadedImages={mainImg}
           setUploadedImages={setMainimg}
-        />
+        /> */}
+
+        <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}

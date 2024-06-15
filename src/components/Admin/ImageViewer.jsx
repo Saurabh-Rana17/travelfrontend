@@ -138,7 +138,7 @@ export default function ImageViewer({ type = "multi", images, setImages }) {
               Maximum image added
               <br />
               {images.length - max > 0 && (
-                <>remove {images.length - max + 1} image before submitting</>
+                <>remove {images.length - max} image before submitting</>
               )}
             </Typography>
           )}

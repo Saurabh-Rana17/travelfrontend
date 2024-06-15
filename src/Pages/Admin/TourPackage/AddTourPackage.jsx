@@ -118,7 +118,7 @@ export default function AddTourPackage() {
           gutterBottom
           variant="h5"
         >
-          Add new Tour Package
+          Add New Tour Package
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>

@@ -113,7 +113,7 @@ export default function UpdateTourForm() {
           gutterBottom
           variant="h5"
         >
-          Add new Homestay
+          Update Tour
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
