@@ -5,6 +5,7 @@ import MapViewer from "../../../components/Admin/MapViewer";
 import { useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../components/Skeleton/Loader";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function UpdateHotelForm() {
   const params = useParams();
@@ -73,6 +74,9 @@ export default function UpdateHotelForm() {
   if (loading) {
     return <Loader />;
   }
+  if (isError) {
+    return <p>Error:{error.message}</p>;
+  }
   return (
     <Box
       component={"form"}
@@ -113,11 +117,7 @@ export default function UpdateHotelForm() {
 
         <Typography variant="h6">Select Main Image</Typography>
 
-        <ImageUploader
-          maxFiles={1}
-          uploadedImages={mainImg}
-          setUploadedImages={setMainimg}
-        />
+        <ImageViewer images={mainImg} setImages={setMainimg} type="single" />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -164,11 +164,7 @@ export default function UpdateHotelForm() {
 
         <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
 
-        <ImageUploader
-          setUploadedImages={setOtherImg}
-          uploadedImages={otherImg}
-          maxFiles={8}
-        />
+        <ImageViewer images={otherImg} setImages={setOtherImg} type="multi" />
 
         <MapViewer
           type="update"

@@ -13,9 +13,12 @@ import React, { useEffect, useState } from "react";
 export default function ImageViewer({ type = "multi", images, setImages }) {
   const max = type === "multi" ? 8 : 1;
   const [imgText, setImgText] = useState("");
-  const [showMainImg, setShowMainImg] = useState(false);
+  const [showMainImg, setShowMainImg] = useState(true);
   //   const [images, setImages] = useState([]);
   const [disable, setDisable] = useState(false);
+
+  const placeHolder =
+    type === "multi" ? "add link 1 \nadd link 2 \nadd link 3" : "Main Link";
 
   useEffect(() => {
     if (images.length >= max) {
@@ -78,8 +81,6 @@ export default function ImageViewer({ type = "multi", images, setImages }) {
     </Card>
   ));
 
-  console.log(images);
-
   return (
     <>
       <Typography variant="h6">
@@ -90,6 +91,7 @@ export default function ImageViewer({ type = "multi", images, setImages }) {
           <TextField
             disabled={disable}
             multiline
+            minRows={max === 1 ? 1 : 3}
             maxRows={14}
             required={max === 1 ? true : false}
             sx={{
@@ -104,7 +106,13 @@ export default function ImageViewer({ type = "multi", images, setImages }) {
               },
             }}
             fullWidth
-            label="Main Image Link"
+            label={
+              type === "multi" ? "Add Other Images Link" : "Add Main Image Link"
+            }
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={placeHolder}
             value={imgText}
             onChange={(e) => {
               setImgText(e.target.value);
@@ -116,7 +124,7 @@ export default function ImageViewer({ type = "multi", images, setImages }) {
               marginBottom={"1rem"}
               textAlign={"center"}
             >
-              you can add max {max} images
+              you can add max {max} image{max === 1 ? "" : "s"} here
               <br />
               enter each link on new line
             </Typography>
