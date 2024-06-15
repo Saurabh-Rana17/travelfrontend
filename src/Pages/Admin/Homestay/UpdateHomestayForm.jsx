@@ -5,6 +5,7 @@ import MapViewer from "../../../components/Admin/MapViewer";
 import { useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../components/Skeleton/Loader";
+import ImageViewer from "../../../components/Admin/ImageViewer";
 
 export default function UpdateHomestayForm() {
   const params = useParams();
@@ -115,12 +116,13 @@ export default function UpdateHomestayForm() {
         </Typography>
 
         <Typography variant="h6">Select Main Image</Typography>
-
+        {/* 
         <ImageUploader
           maxFiles={1}
           uploadedImages={mainImg}
           setUploadedImages={setMainimg}
-        />
+        /> */}
+        <ImageViewer type="single" images={mainImg} setImages={setMainimg} />
 
         <TextField
           sx={{ marginBottom: "1.5rem" }}
@@ -167,11 +169,13 @@ export default function UpdateHomestayForm() {
 
         <Typography variant="h6">Add Other Images Max Limit is 8</Typography>
 
-        <ImageUploader
+        {/* <ImageUploader
           setUploadedImages={setOtherImg}
           uploadedImages={otherImg}
           maxFiles={8}
-        />
+        /> */}
+
+        <ImageViewer type="multi" images={otherImg} setImages={setOtherImg} />
 
         <MapViewer
           type="update"
